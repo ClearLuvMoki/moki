@@ -1,0 +1,33 @@
+{
+  "name": "moki",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@types/node": "20.4.5",
+    "@types/react": "18.2.17",
+    "@types/react-dom": "18.2.7",
+    "eslint": "8.46.0",
+    "eslint-config-next": "13.4.12",
+    "next": "13.4.12",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "@nextui-org/react": "^1.0.0-beta.13",
+    "deep-equal": "^2.2.2",
+    "framer-motion": "^10.15.0",
+    "i18next": "^23.4.1",
+    "react-hook-form": "^7.45.2",
+    "react-hot-toast": "^2.4.1",
+    "react-i18next": "^13.0.2",
+    "react-use": "^17.4.0",
+    "styled-components": "^6.0.5"
+  }
+}

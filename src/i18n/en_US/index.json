@@ -1,0 +1,9 @@
+{
+  "phone": "Phone Number",
+  "password": "Password",
+  "login": {
+    "key": "Login",
+    "title": "Welcome back",
+    "sub-title": "Please login to your account"
+  }
+}
