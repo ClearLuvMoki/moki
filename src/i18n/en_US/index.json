@@ -1,9 +1,22 @@
 {
   "phone": "Phone Number",
+  "nickName": "Nick Name",
+  "email": {
+    "key": "Email Address",
+    "code": "E-mail verification code",
+    "pattern": "Email format verification failed!",
+    "required": "Email is required!",
+    "fail": "Email is wrong!"
+  },
   "password": "Password",
+  "sign-up": "Don't have an account?",
+  "sign-in": "Already have an account? ",
   "login": {
-    "key": "Login",
+    "key": "Sign In",
     "title": "Welcome back",
     "sub-title": "Please login to your account"
+  },
+  "register": {
+    "key": "Sign Up"
   }
 }

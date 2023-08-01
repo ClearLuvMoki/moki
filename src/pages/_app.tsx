@@ -1,7 +1,7 @@
 import StyledComponentsRegistry from "../styled-registry";
 import {createGlobalStyle} from "styled-components"
 import {AppProps} from "next/app";
-import {createTheme, NextUIProvider} from '@nextui-org/react'
+import {NextUIProvider} from '@nextui-org/react'
 import {Toaster} from "react-hot-toast";
 import React from "react";
 import '../i18n';
@@ -20,7 +20,6 @@ const StyledGlobal = createGlobalStyle`
     height: 100%;
   }
 `
-const theme = createTheme({type: "dark"})
 
 export default function App(
     {Component, pageProps}: AppProps) {
@@ -28,7 +27,7 @@ export default function App(
         <StyledComponentsRegistry>
             <StyledGlobal/>
             <Toaster/>
-            <NextUIProvider theme={theme}>
+            <NextUIProvider>
                 <Component {...pageProps} />
             </NextUIProvider>
         </StyledComponentsRegistry>
