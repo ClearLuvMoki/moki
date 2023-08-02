@@ -1,18 +1,10 @@
 import React, {useState} from 'react';
-import styled from "styled-components";
 import {Button, Input} from "@nextui-org/react";
 import {useForm} from "react-hook-form";
 import {useTranslation} from "react-i18next";
 
-const StyledForm = styled.form`
-  width: 400px;
-  margin: 30px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-`
 
-type State = {
+interface State {
     email: string;
     emailCode: string;
     nickName: string;
@@ -37,12 +29,16 @@ const RegisterForm = () => {
 
 
     return (
-        <StyledForm onSubmit={handleSubmit($onSubmit)}>
+        <form
+            className={"w-[400px] my-[30px] flex flex-col gap-[40px]"}
+            onSubmit={handleSubmit($onSubmit)}
+        >
             <Input
                 size="lg"
                 value={state.email}
+                labelPlacement={"outside"}
                 label={t("email.key")}
-                status={Object.keys(errors?.email || {}).length > 0 ? "error" : "default"}
+                color={Object.keys(errors?.email || {}).length > 0 ? "danger" : "default"}
                 {...register("email", {required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i})}
                 onChange={(e) => {
                     setState((prevState) => ({
@@ -54,6 +50,7 @@ const RegisterForm = () => {
             <Input
                 size="lg"
                 value={state.emailCode}
+                labelPlacement={"outside"}
                 label={t("email.code")}
                 {...register("emailCode", {required: true})}
                 onChange={(e) => {
@@ -66,6 +63,7 @@ const RegisterForm = () => {
             <Input
                 size="lg"
                 value={state.nickName}
+                labelPlacement={"outside"}
                 label={t("email.nickName")}
                 {...register("nickName", {required: true})}
                 onChange={(e) => {
@@ -78,6 +76,7 @@ const RegisterForm = () => {
             <Input
                 size="lg"
                 type={"password"}
+                labelPlacement={"outside"}
                 value={state.password}
                 label={t("password")}
                 {...register("password", {required: true})}
@@ -88,8 +87,10 @@ const RegisterForm = () => {
                     }))
                 }}
             />
-            <Input.Password
+            <Input
+                type={"password"}
                 size="lg"
+                labelPlacement={"outside"}
                 value={state.verifyPassword}
                 label={t("verifyPassword")}
                 {...register("verifyPassword", {required: true})}
@@ -100,8 +101,8 @@ const RegisterForm = () => {
                     }))
                 }}
             />
-            <Button shadow type={'submit'}>{t("login.key")}</Button>
-        </StyledForm>
+            <Button variant={"shadow"} type={'submit'}>{t("login.key")}</Button>
+        </form>
     );
 };
 

@@ -1,6 +1,7 @@
 import React from "react";
 import Document, {Html, Head, Main, NextScript} from "next/document";
 
+
 class AppDocument extends Document {
     static async getInitialProps(ctx: any) {
         const initialProps = await Document.getInitialProps(ctx);
@@ -12,12 +13,11 @@ class AppDocument extends Document {
 
     render() {
         return (
-            <Html lang="en">
-                <body>]
-                <main className="dark ">
+            <Html lang="en" className={"dark"}>
+                <Head/>
+                <body>
                     <Main/>
                     <NextScript/>
-                </main>
                 </body>
             </Html>
         );
