@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {Button, extendVariants, Input} from "@nextui-org/react";
+import React, {useState} from 'react';
+import {Button, Input} from "@nextui-org/react";
 import {useTranslation} from "react-i18next";
-import {motion, AnimatePresence} from "framer-motion"
+import {motion} from "framer-motion"
+import {useTimeout} from 'react-use';
 
 
 interface Props {
@@ -27,9 +28,6 @@ const LoginForm = ({onSubmit}: Props) => {
             errorInfo: ""
         })
 
-        const $onSubmit = (data: any) => {
-            onSubmit && onSubmit(data)
-        }
 
         const handleChangeEmail = (value: string) => {
             const pattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i;
@@ -53,13 +51,13 @@ const LoginForm = ({onSubmit}: Props) => {
 
         return (
             <motion.div
-                className={"w-[400px] my-[30px] flex flex-col gap-[40px]"}
+                className={"w-[400px] my-[30px] flex flex-col gap-[20px]"}
                 initial={{opacity: 0, x: -10}}
                 animate={{opacity: 1, x: 0}}
             >
                 <Input
                     size="lg"
-                    labelPlacement={"outside"}
+                    labelPlacement={"inside"}
                     value={emailState.value}
                     label={t("email.key")}
                     color={emailState?.validationState === "invalid" ? "danger" : "default"}
@@ -72,7 +70,7 @@ const LoginForm = ({onSubmit}: Props) => {
                 <Input
                     size="lg"
                     type={"password"}
-                    labelPlacement={"outside"}
+                    labelPlacement={"inside"}
                     value={passwordState.value}
                     label={t("password.key")}
                     color={passwordState?.validationState === "invalid" ? "danger" : "default"}
@@ -85,6 +83,12 @@ const LoginForm = ({onSubmit}: Props) => {
                 <Button
                     color="primary"
                     variant="shadow"
+                    onClick={() => {
+                        onSubmit && onSubmit({
+                            email: emailState.value,
+                            password: passwordState.value
+                        });
+                    }}
                 >{t("login.key")}</Button>
             </motion.div>
         );

@@ -1,8 +1,11 @@
 {
   "phone": "Phone Number",
-  "nickName": "Nick Name",
   "sign-up": "Don't have an account?",
   "sign-in": "Already have an account? ",
+  "nickName": {
+    "key": "Nick Name",
+    "required": "Nick Name is required!"
+  },
   "email": {
     "key": "Email Address",
     "code": "E-mail verification code",
@@ -10,9 +13,19 @@
     "required": "Email is required!",
     "fail": "Email is wrong!"
   },
+  "email-code": {
+    "key": "E-mail verification code",
+    "required": "Email-Code is required!",
+    "send-code": "Send Code"
+  },
   "password": {
     "key": "Password",
     "required": "Password is required!"
+  },
+  "verify-password": {
+    "key": "Verify Password",
+    "required": "Verify Password is required!",
+    "not-equal": "The two passwords are inconsistent!"
   },
   "login": {
     "key": "Sign In",

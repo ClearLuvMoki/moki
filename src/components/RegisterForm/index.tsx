@@ -1,108 +1,205 @@
 import React, {useState} from 'react';
 import {Button, Input} from "@nextui-org/react";
-import {useForm} from "react-hook-form";
 import {useTranslation} from "react-i18next";
+import {motion} from "framer-motion"
+import {useTimeout} from "react-use";
+import useCountdown from "@/hooks/useCountDown";
+import {useMutation} from "@tanstack/react-query";
+import {getEmailCode} from "@/service/get-api";
 
 
-interface State {
-    email: string;
-    emailCode: string;
-    nickName: string;
-    password: string;
-    verifyPassword: string;
+interface Props {
+    onSubmit: () => void;
 }
 
-const RegisterForm = () => {
-    const {register, handleSubmit, formState: {errors}, control} = useForm();
+interface ValidationState {
+    value: string;
+    validationState: "valid" | "invalid";
+    errorInfo: string;
+}
+
+const RegisterForm = ({onSubmit}: Props) => {
     const {t} = useTranslation()
-    const [state, setState] = useState<State>({
-        email: '',
-        emailCode: "",
-        nickName: "",
-        password: "",
-        verifyPassword: ""
+    const [isReady, cancel] = useTimeout(60000);
+    const [emailState, setEmailState] = useState<ValidationState>({
+        value: '',
+        validationState: "valid",
+        errorInfo: ""
+    })
+    const [emailCodeState, setEmailCodeState] = useState<ValidationState>({
+        value: '',
+        validationState: "valid",
+        errorInfo: ""
+    })
+    const [passwordState, setPasswordState] = useState<ValidationState>({
+        value: '',
+        validationState: "valid",
+        errorInfo: ""
+    })
+    const [nickNameState, setNickNameState] = useState<ValidationState>({
+        value: '',
+        validationState: "valid",
+        errorInfo: ""
+    })
+    const [verifyPasswordState, setVerifyPasswordState] = useState<ValidationState>({
+        value: '',
+        validationState: "valid",
+        errorInfo: ""
+    })
+    const [time, setTime] = useState<number>(0); // 获取验证码时间
+    const {count} = useCountdown({
+        time,
     })
 
-    const $onSubmit = () => {
+    const {mutateAsync} = useMutation(getEmailCode)
 
+
+    const handleChangeEmail = (value: string) => {
+        const pattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i;
+        const validatePatternEmail = !pattern.test(value);
+        const validateRequiredEmail = !value;
+        setEmailState({
+            value,
+            validationState: (validatePatternEmail || validateRequiredEmail) ? "invalid" : "valid",
+            errorInfo: validatePatternEmail ? t("email.pattern") : validateRequiredEmail ? t("email.required") : ""
+        })
+    }
+    const handleChangeEmailCode = (value: string) => {
+        const validateRequiredEmailCode = !value;
+        setEmailState({
+            value,
+            validationState: (validateRequiredEmailCode) ? "invalid" : "valid",
+            errorInfo: validateRequiredEmailCode ? t("email-code.required") : ""
+        })
+    }
+
+    const handleChangeNickName = (value: string) => {
+        const validateRequiredNickName = !value;
+        setPasswordState({
+            value,
+            validationState: validateRequiredNickName ? "invalid" : "valid",
+            errorInfo: validateRequiredNickName ? t("nickName.required") : ""
+        })
+    }
+
+    const handleChangePassword = (value: string) => {
+        const validateRequiredPassword = !value;
+        setPasswordState({
+            value,
+            validationState: validateRequiredPassword ? "invalid" : "valid",
+            errorInfo: validateRequiredPassword ? t("password.required") : ""
+        })
+    }
+
+    const handleChangeVerifyPassword = (value: string) => {
+        const validateEqualVerifyPassword = value !== passwordState.value;
+        const validateRequiredVerifyPassword = !value;
+        setVerifyPasswordState({
+            value,
+            validationState: (validateRequiredVerifyPassword || validateEqualVerifyPassword) ? "invalid" : "valid",
+            errorInfo: validateRequiredVerifyPassword ? t("verify-password.required") : validateEqualVerifyPassword ? t("verify-password.not-equal") : ""
+        })
+    }
+
+    const handleSendCode = () => {
+        mutateAsync({email: "1371259175@qq.com"})
+            .then((res) => {
+                console.log(res, 'res')
+            })
     }
 
 
     return (
-        <form
-            className={"w-[400px] my-[30px] flex flex-col gap-[40px]"}
-            onSubmit={handleSubmit($onSubmit)}
+        <motion.div
+            className={"w-[400px] my-[30px] flex flex-col gap-[20px]"}
+            initial={{opacity: 0, x: -10}}
+            animate={{opacity: 1, x: 0}}
         >
             <Input
                 size="lg"
-                value={state.email}
-                labelPlacement={"outside"}
+                labelPlacement={"inside"}
+                value={emailState.value}
                 label={t("email.key")}
-                color={Object.keys(errors?.email || {}).length > 0 ? "danger" : "default"}
-                {...register("email", {required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i})}
+                color={emailState?.validationState === "invalid" ? "danger" : "default"}
+                errorMessage={emailState.errorInfo}
+                validationState={emailState.validationState}
                 onChange={(e) => {
-                    setState((prevState) => ({
-                        ...prevState,
-                        email: e?.target.value
-                    }))
+                    handleChangeEmail(e.target.value)
                 }}
             />
             <Input
                 size="lg"
-                value={state.emailCode}
-                labelPlacement={"outside"}
-                label={t("email.code")}
-                {...register("emailCode", {required: true})}
+                value={emailCodeState.value}
+                labelPlacement={"inside"}
+                label={t("email-code.key")}
+                color={emailCodeState?.validationState === "invalid" ? "danger" : "default"}
+                errorMessage={emailCodeState.errorInfo}
+                validationState={emailCodeState.validationState}
                 onChange={(e) => {
-                    setState((prevState) => ({
-                        ...prevState,
-                        emailCode: e?.target.value
-                    }))
+                    handleChangeEmailCode(e.target.value)
                 }}
+                endContent={
+                    <div
+                        className={"inline-flex"}
+                    >
+                        {
+                            count === 0 ? <Button
+                                color="primary"
+                                variant="shadow"
+                                onClick={() => {
+                                    handleSendCode()
+                                }}
+                            >{t("email-code.send-code")}</Button> : `${count}s`
+                        }
+                    </div>
+                }
             />
             <Input
                 size="lg"
-                value={state.nickName}
-                labelPlacement={"outside"}
-                label={t("email.nickName")}
-                {...register("nickName", {required: true})}
+                value={nickNameState.value}
+                labelPlacement={"inside"}
+                label={t("nickName.key")}
+                color={nickNameState?.validationState === "invalid" ? "danger" : "default"}
+                errorMessage={nickNameState.errorInfo}
+                validationState={nickNameState.validationState}
                 onChange={(e) => {
-                    setState((prevState) => ({
-                        ...prevState,
-                        nickName: e?.target.value
-                    }))
+                    handleChangeNickName(e.target.value)
                 }}
             />
             <Input
                 size="lg"
                 type={"password"}
-                labelPlacement={"outside"}
-                value={state.password}
-                label={t("password")}
-                {...register("password", {required: true})}
+                labelPlacement={"inside"}
+                value={passwordState.value}
+                label={t("password.key")}
+                color={passwordState?.validationState === "invalid" ? "danger" : "default"}
+                errorMessage={passwordState.errorInfo}
+                validationState={passwordState.validationState}
                 onChange={(e) => {
-                    setState((prevState) => ({
-                        ...prevState,
-                        password: e?.target.value
-                    }))
+                    handleChangePassword(e.target.value)
                 }}
             />
             <Input
                 type={"password"}
                 size="lg"
-                labelPlacement={"outside"}
-                value={state.verifyPassword}
-                label={t("verifyPassword")}
-                {...register("verifyPassword", {required: true})}
+                labelPlacement={"inside"}
+                value={verifyPasswordState.value}
+                label={t("verify-password.key")}
+                color={verifyPasswordState?.validationState === "invalid" ? "danger" : "default"}
+                errorMessage={verifyPasswordState.errorInfo}
+                validationState={verifyPasswordState.validationState}
                 onChange={(e) => {
-                    setState((prevState) => ({
-                        ...prevState,
-                        verifyPassword: e?.target.value
-                    }))
+                    handleChangeVerifyPassword(e.target.value)
                 }}
             />
-            <Button variant={"shadow"} type={'submit'}>{t("login.key")}</Button>
-        </form>
+            <Button
+                color="primary"
+                variant="shadow"
+                onClick={() => {
+                    onSubmit && onSubmit();
+                }}
+            >{t("login.key")}</Button>
+        </motion.div>
     );
 };
 

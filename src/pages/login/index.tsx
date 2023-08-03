@@ -30,23 +30,30 @@ const Login: NextPage = () => {
                                 }}
                             />
                         ) : (
-                            <RegisterForm/>
+                            <RegisterForm
+                                onSubmit={() => {
+                                }}
+                            />
                         )
                     }
                     {
                         isSignIn ? <Text level={4}>
-                                {t("sign-up")}
-                                {/*<Text*/}
-                                {/*    level={4}*/}
-                                {/*    className={"inline underline ml-2 cursor-pointer"}*/}
-                                {/*>{t('register.key')}</Text>*/}
+                                <span>{t("sign-up")}</span>
+                                <span
+                                    className={"inline underline ml-2 cursor-pointer"}
+                                    onClick={() => {
+                                        setIsSignIn(false)
+                                    }}
+                                >{t("register.key")}</span>
                             </Text> :
                             <Text level={4}>
-                                {t("sign-in")}
-                                {/*<Text*/}
-                                {/*    level={4}*/}
-                                {/*    className={"inline underline ml-2 cursor-pointer"}*/}
-                                {/*>{t('login.key')}</Text>*/}
+                                <span>{t("sign-in")}</span>
+                                <span
+                                    className={"inline underline ml-2 cursor-pointer"}
+                                    onClick={() => {
+                                        setIsSignIn(true)
+                                    }}
+                                >{t("login.key")}</span>
                             </Text>
                     }
                 </div>
