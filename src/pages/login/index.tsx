@@ -34,8 +34,20 @@ const Login: NextPage = () => {
                         )
                     }
                     {
-                        isSignIn ? <Text level={4}>{t("sign-up")}</Text> :
-                            <Text level={4}>{t("sign-in")}</Text>
+                        isSignIn ? <Text level={4}>
+                                {t("sign-up")}
+                                {/*<Text*/}
+                                {/*    level={4}*/}
+                                {/*    className={"inline underline ml-2 cursor-pointer"}*/}
+                                {/*>{t('register.key')}</Text>*/}
+                            </Text> :
+                            <Text level={4}>
+                                {t("sign-in")}
+                                {/*<Text*/}
+                                {/*    level={4}*/}
+                                {/*    className={"inline underline ml-2 cursor-pointer"}*/}
+                                {/*>{t('login.key')}</Text>*/}
+                            </Text>
                     }
                 </div>
                 <div
