@@ -12,6 +12,7 @@ interface Props {
 }
 
 export default function IndexPage({files}: Props) {
+    console.log(files, 'files')
 
     return (
         <DefaultLayout>
@@ -24,13 +25,15 @@ export default function IndexPage({files}: Props) {
                     </h4>
                 </div>
 
-                <div className={"w-full"}>
+                <div className={"w-full lg:w-[900px] xl:w-[1100px]"}>
                     {
-                        (files || []).map((md, index) => (<MDXCard
-                            key={index}
-                            path={md.path}
-                            content={md.content}
-                        />))
+                        (files || []).map((md, index) => (
+                            <MDXCard
+                                key={index}
+                                path={md.path}
+                                content={md.content}
+                            />
+                        ))
                     }
                 </div>
             </section>
@@ -47,20 +50,23 @@ export const getStaticProps: GetStaticProps = async () => {
     };
 };
 
+
 function getLocalMdFiles(dir: string) {
-    let files_ = [];
+    let filesContent: any[] = [];
     const files = fs.readdirSync(dir);
     for (let i in files) {
-        let name = dir + '/' + files[i];
+        let name = path.resolve(dir + '/' + files[i]);
         if (fs.statSync(name).isDirectory()) {
-            getLocalMdFiles(name);
+            filesContent = filesContent.concat(getLocalMdFiles(name));
         } else {
             const filePath = path.resolve(name);
-            files_.push({
+            const content = fs.readFileSync(filePath, "utf-8")
+            filesContent.push({
                 path: filePath,
-                content: fs.readFileSync(filePath, "utf-8")
+                content
             });
         }
     }
-    return files_;
+    return filesContent;
 }
+

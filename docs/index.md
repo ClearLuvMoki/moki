@@ -3,7 +3,7 @@ title: Welcome to 1921
 date: 2019-11-07
 updated: 2019-11-07
 author: 徐牧之啊
-index_img: ./img/index.jpg
+index_img: home.jpg
 excerpt: 来自1921的描述
 ---
 
