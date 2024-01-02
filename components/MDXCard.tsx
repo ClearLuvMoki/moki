@@ -3,6 +3,9 @@ import {serialize} from 'next-mdx-remote/serialize'
 import {Card, CardBody, Image} from "@nextui-org/react";
 import {CalendarDays} from "lucide-react";
 import dayjs from "dayjs";
+import {useRouter} from "next/router";
+import {nanoid} from "nanoid";
+import {CryptoSearchKey} from "@/utils/tools";
 
 
 interface Props {
@@ -11,6 +14,8 @@ interface Props {
 }
 
 const MDXCard = ({path, content}: Props) => {
+    const router = useRouter()
+
     const [main, setMain] = useState<{
         title: string;
         date: Date;
@@ -22,12 +27,24 @@ const MDXCard = ({path, content}: Props) => {
 
     useEffect(() => {
         serialize(content, {
-                parseFrontmatter: true,
+            parseFrontmatter: true,
         })
             .then((res) => {
                 setMain(res?.frontmatter as any || null)
             })
     }, [content])
+
+    const handleClick = () => {
+        const id = nanoid();
+        const cipherPath = CryptoSearchKey.enCode(path);
+        router.push({
+            pathname: "/blog/[id]",
+            query: {
+                id,
+                path: cipherPath
+            }
+        })
+    }
 
 
     return (
@@ -42,8 +59,14 @@ const MDXCard = ({path, content}: Props) => {
                     src={`/images/${main?.img}`}
                     className={"w-[270px] h-[160px]"}
                 />
-                <article className={"flex flex-col h-full justify-between py-4 w-[270px] " +
-                    "md:flex-1"}>
+                <article
+                    className={"flex flex-col h-full justify-between py-4 w-[270px] " +
+                        "md:flex-1"
+                    }
+                    onClick={() => {
+                        handleClick();
+                    }}
+                >
                     <div className={"hover:cursor-pointer hover:text-[#7dd3fc]"}>
                         <h4 className="font-bold text-large">{main?.title}</h4>
                         <h5 className="text-gray-500 line-clamp-3">{main?.excerpt}</h5>
