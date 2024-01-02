@@ -12,8 +12,6 @@ interface Props {
 }
 
 export default function IndexPage({files}: Props) {
-    console.log(files, 'files')
-
     return (
         <DefaultLayout>
             <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
@@ -45,7 +43,7 @@ export const getStaticProps: GetStaticProps = async () => {
     const files = getLocalMdFiles(path.resolve("./docs"));
     return {
         props: {
-            files,
+            files: (files || []).reverse(),
         },
     };
 };
@@ -57,7 +55,7 @@ function getLocalMdFiles(dir: string) {
     for (let i in files) {
         let name = path.resolve(dir + '/' + files[i]);
         if (fs.statSync(name).isDirectory()) {
-            filesContent = filesContent.concat(getLocalMdFiles(name));
+            filesContent = filesContent.concat(getLocalMdFiles(name) || []);
         } else {
             const filePath = path.resolve(name);
             const content = fs.readFileSync(filePath, "utf-8")
