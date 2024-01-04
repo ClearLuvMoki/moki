@@ -4,7 +4,6 @@ import {Card, CardBody, Image} from "@nextui-org/react";
 import {CalendarDays} from "lucide-react";
 import dayjs from "dayjs";
 import {useRouter} from "next/router";
-import {nanoid} from "nanoid";
 import {CryptoSearchKey} from "@/utils/tools";
 
 
@@ -35,12 +34,10 @@ const MDXCard = ({path, content}: Props) => {
     }, [content])
 
     const handleClick = () => {
-        const id = nanoid();
         const cipherPath = CryptoSearchKey.enCode(path);
         router.push({
-            pathname: "/blog/[id]",
+            pathname: "/blog",
             query: {
-                id,
                 path: cipherPath
             }
         })
