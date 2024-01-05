@@ -10,10 +10,18 @@ import slug from 'remark-slug'; // 为html标签添加id（锚点跳转）
 import remarkGfm from 'remark-gfm';// 渲染表格插件
 import {Card, CardBody} from "@nextui-org/react";
 import MDXComponents from "@/components/MDXComponents";
+import {useTheme} from "next-themes"
+import Typewriter from 'typewriter-effect';
+import {BarChartBig, CalendarDays, ClipboardEdit, Hourglass} from "lucide-react";
+import dayjs from "dayjs";
+import reading from "reading-time";
 
 
 interface Props {
-    blog: string;
+    blog: {
+        source: string;
+        content: string;
+    };
 }
 
 interface State {
@@ -21,15 +29,15 @@ interface State {
 }
 
 export default function Blog({blog}: Props) {
+    const {theme} = useTheme();
     const [state, setState] = useSetState<State>({
         content: null
     })
 
-
     useEffect(() => {
         if (blog) {
             setState({
-                content: JSON.parse(blog)
+                content: JSON.parse(blog?.source)
             })
         }
     }, [blog])
@@ -40,15 +48,71 @@ export default function Blog({blog}: Props) {
             <Head/>
             <Navbar/>
             <main className="container mx-auto max-w-7xl px-6 flex-grow">
+                <div className={"m-auto flex flex-col justify-center items-center h-[500px]"}>
+                    <div className={"text-4xl font-bold"}>
+                        <Typewriter
+                            options={{
+                                autoStart: true,
+                                cursor: "_",
+                                loop: true
+                            }}
+                            onInit={(typewriter) => {
+                                typewriter.typeString(state.content?.frontmatter?.title as string || "")
+                                    .pauseFor(2500)
+                                    .deleteAll()
+                                    .start()
+                            }}
+                        />
+                    </div>
+                    <div className={"flex gap-4 mt-4"}>
+                       <span className={"flex justify-center items-center gap-2"}>
+                           <ClipboardEdit
+                               size={16}
+                           />
+                           <span>
+                               {state?.content?.frontmatter?.author as string}
+                           </span>
+                       </span>
+                        <span className={"flex justify-center items-center gap-2"}>
+                           <CalendarDays
+                               size={16}
+                           />
+                           <span>
+                               {state?.content?.frontmatter?.date as string ? dayjs(state?.content?.frontmatter?.date as Date || "").format("YYYY-MM-DD") : "2000-01-01"}
+                           </span>
+                       </span>
+                    </div>
+                    <div className={"flex gap-4"}>
+                        <span className={"flex justify-center items-center gap-2"}>
+                           <BarChartBig
+                               size={16}
+                           />
+                           <span>
+                               {reading(blog?.content || "").words}
+                           </span>
+                       </span>
+                        <span className={"flex justify-center items-center gap-2"}>
+                           <Hourglass
+                               size={16}
+                           />
+                           <span>
+                               {reading(blog?.content || "").text}
+                           </span>
+                       </span>
+                    </div>
+                </div>
                 <Card>
-                    <CardBody>
+                    <CardBody className={"py-6 px-10"}>
                         {
                             state.content?.scope && (
                                 <MDXRemote
                                     {...state.content}
-                                    components={MDXComponents}
+                                    components={{
+                                        ...MDXComponents,
+                                    }}
                                 />
-                            )}
+                            )
+                        }
                     </CardBody>
                 </Card>
             </main>
@@ -82,7 +146,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     return {
         props: {
-            blog: JSON.stringify(mdxSource)
+            blog: {
+                source: JSON.stringify(mdxSource),
+                content
+            }
         }
     }
 }
