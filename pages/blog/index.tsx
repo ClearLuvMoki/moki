@@ -11,10 +11,10 @@ import remarkGfm from 'remark-gfm';// 渲染表格插件
 import {Card, CardBody} from "@nextui-org/react";
 import MDXComponents from "@/components/MDXComponents";
 import {useTheme} from "next-themes"
-import Typewriter from 'typewriter-effect';
 import {BarChartBig, CalendarDays, ClipboardEdit, Hourglass} from "lucide-react";
 import dayjs from "dayjs";
 import reading from "reading-time";
+import { Typewriter } from "react-simple-typewriter"
 
 
 interface Props {
@@ -51,17 +51,11 @@ export default function Blog({blog}: Props) {
                 <div className={"m-auto flex flex-col justify-center items-center h-[500px]"}>
                     <div className={"text-4xl font-bold"}>
                         <Typewriter
-                            options={{
-                                autoStart: true,
-                                cursor: "_",
-                                loop: true
-                            }}
-                            onInit={(typewriter) => {
-                                typewriter.typeString(state.content?.frontmatter?.title as string || "")
-                                    .pauseFor(2500)
-                                    .deleteAll()
-                                    .start()
-                            }}
+                            loop={true}
+                            cursor
+                            cursorStyle='_'
+                            words={[state.content?.frontmatter?.title as string]}
+                            delaySpeed={3000}
                         />
                     </div>
                     <div className={"flex gap-4 mt-4"}>
