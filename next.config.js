@@ -2,7 +2,7 @@
 const nextConfig = {
     reactStrictMode: true,
     pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
-    output: "export"
+    output: "standalone"
 }
 
 module.exports = nextConfig;
