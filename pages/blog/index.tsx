@@ -1,6 +1,4 @@
 import React, {useEffect} from 'react';
-import {Head} from "@/layouts/head";
-import {Navbar} from "@/components/navbar";
 import {serialize} from 'next-mdx-remote/serialize'
 import {MDXRemote, MDXRemoteSerializeResult} from 'next-mdx-remote'
 import {CryptoSearchKey} from "@/utils/tools";
@@ -14,7 +12,8 @@ import {useTheme} from "next-themes"
 import {BarChartBig, CalendarDays, ClipboardEdit, Hourglass} from "lucide-react";
 import dayjs from "dayjs";
 import reading from "reading-time";
-import { Typewriter } from "react-simple-typewriter"
+import {Typewriter} from "react-simple-typewriter"
+import DefaultLayout from "@/layouts/default";
 
 
 interface Props {
@@ -44,21 +43,18 @@ export default function Blog({blog}: Props) {
 
 
     return (
-        <div className="h-screen">
-            <Head/>
-            <Navbar/>
-            <main className="container mx-auto max-w-7xl px-6 flex-grow">
-                <div className={"m-auto flex flex-col justify-center items-center h-[500px]"}>
-                    <div className={"text-4xl font-bold"}>
-                        <Typewriter
-                            loop={true}
-                            cursor
-                            cursorStyle='_'
-                            words={[state.content?.frontmatter?.title as string]}
-                            delaySpeed={3000}
-                        />
-                    </div>
-                    <div className={"flex gap-4 mt-4"}>
+        <DefaultLayout>
+            <div className={"m-auto flex flex-col justify-center items-center h-[500px]"}>
+                <div className={"text-4xl font-bold"}>
+                    <Typewriter
+                        loop={true}
+                        cursor
+                        cursorStyle='_'
+                        words={[state.content?.frontmatter?.title as string]}
+                        delaySpeed={3000}
+                    />
+                </div>
+                <div className={"flex gap-4 mt-4"}>
                        <span className={"flex justify-center items-center gap-2"}>
                            <ClipboardEdit
                                size={16}
@@ -67,7 +63,7 @@ export default function Blog({blog}: Props) {
                                {state?.content?.frontmatter?.author as string}
                            </span>
                        </span>
-                        <span className={"flex justify-center items-center gap-2"}>
+                    <span className={"flex justify-center items-center gap-2"}>
                            <CalendarDays
                                size={16}
                            />
@@ -75,8 +71,8 @@ export default function Blog({blog}: Props) {
                                {state?.content?.frontmatter?.date as string ? dayjs(state?.content?.frontmatter?.date as Date || "").format("YYYY-MM-DD") : "2000-01-01"}
                            </span>
                        </span>
-                    </div>
-                    <div className={"flex gap-4"}>
+                </div>
+                <div className={"flex gap-4"}>
                         <span className={"flex justify-center items-center gap-2"}>
                            <BarChartBig
                                size={16}
@@ -85,7 +81,7 @@ export default function Blog({blog}: Props) {
                                {reading(blog?.content || "").words}
                            </span>
                        </span>
-                        <span className={"flex justify-center items-center gap-2"}>
+                    <span className={"flex justify-center items-center gap-2"}>
                            <Hourglass
                                size={16}
                            />
@@ -93,24 +89,23 @@ export default function Blog({blog}: Props) {
                                {reading(blog?.content || "").text}
                            </span>
                        </span>
-                    </div>
                 </div>
-                <Card>
-                    <CardBody className={"py-6 px-10"}>
-                        {
-                            state.content?.scope && (
-                                <MDXRemote
-                                    {...state.content}
-                                    components={{
-                                        ...MDXComponents,
-                                    }}
-                                />
-                            )
-                        }
-                    </CardBody>
-                </Card>
-            </main>
-        </div>
+            </div>
+            <Card>
+                <CardBody className={"py-6 px-10"}>
+                    {
+                        state.content?.scope && (
+                            <MDXRemote
+                                {...state.content}
+                                components={{
+                                    ...MDXComponents,
+                                }}
+                            />
+                        )
+                    }
+                </CardBody>
+            </Card>
+        </DefaultLayout>
     );
 };
 

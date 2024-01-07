@@ -40,7 +40,7 @@ export default function IndexPage({files}: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-    const files = getLocalMdFiles(path.resolve("./docs"));
+    const files = getLocalMdFiles(path.resolve("./public/docs"));
     return {
         props: {
             files: (files || []).reverse(),

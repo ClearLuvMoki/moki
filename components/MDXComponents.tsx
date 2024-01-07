@@ -11,6 +11,16 @@ const MDXComponents = {
             {props.children}
         </h2>
     ),
+    h3: (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>) => (
+        <h2 {...props} className={"text-2xl font-bold mb-4"}>
+            {props.children}
+        </h2>
+    ),
+    h4: (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>) => (
+        <h2 {...props} className={"text-xl font-bold mb-4"}>
+            {props.children}
+        </h2>
+    ),
     p: (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>) => (
         <h2 {...props} className={"text-base mb-2"}>
             {props.children}
