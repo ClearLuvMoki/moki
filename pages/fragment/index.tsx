@@ -3,6 +3,7 @@ import DefaultLayout from "@/layouts/default";
 import {GetStaticProps} from "next";
 import * as fs from "fs";
 import * as path from "path";
+import FragmentCard from "@/components/FragmentCard";
 
 interface Props {
     files: {
@@ -37,9 +38,17 @@ const getLocalFragmentFiles = (dir: string) => {
 
 
 const Fragment = ({files}: Props) => {
+
     return (
         <DefaultLayout>
-            1212
+            {
+                files.map(card => (
+                    <FragmentCard
+                        key={card.path}
+                        content={card.content}
+                    />
+                ))
+            }
         </DefaultLayout>
     );
 };

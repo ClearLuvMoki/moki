@@ -11,6 +11,36 @@ interface Props {
     }[];
 }
 
+export const getStaticProps: GetStaticProps = async () => {
+    const files = getLocalMdFiles(path.resolve("./public/docs"));
+    return {
+        props: {
+            files: (files || []),
+        },
+    };
+};
+
+
+function getLocalMdFiles(dir: string) {
+    let filesContent: any[] = [];
+    const files = fs.readdirSync(dir);
+    for (let i in files) {
+        let name = path.resolve(dir + '/' + files[i]);
+        if (fs.statSync(name).isDirectory()) {
+            filesContent = filesContent.concat(getLocalMdFiles(name) || []);
+        } else {
+            const filePath = path.resolve(name);
+            const content = fs.readFileSync(filePath, "utf-8")
+            filesContent.push({
+                path: filePath,
+                content
+            });
+        }
+    }
+    return filesContent;
+}
+
+
 export default function IndexPage({files}: Props) {
     return (
         <DefaultLayout>
@@ -39,32 +69,4 @@ export default function IndexPage({files}: Props) {
     );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-    const files = getLocalMdFiles(path.resolve("./public/docs"));
-    return {
-        props: {
-            files: (files || []).reverse(),
-        },
-    };
-};
-
-
-function getLocalMdFiles(dir: string) {
-    let filesContent: any[] = [];
-    const files = fs.readdirSync(dir);
-    for (let i in files) {
-        let name = path.resolve(dir + '/' + files[i]);
-        if (fs.statSync(name).isDirectory()) {
-            filesContent = filesContent.concat(getLocalMdFiles(name) || []);
-        } else {
-            const filePath = path.resolve(name);
-            const content = fs.readFileSync(filePath, "utf-8")
-            filesContent.push({
-                path: filePath,
-                content
-            });
-        }
-    }
-    return filesContent;
-}
 
