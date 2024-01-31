@@ -30,7 +30,7 @@ const FragmentCard = ({content}: Props) => {
     }, [content])
 
     return (
-        <Card className={"w-full"}>
+        <Card className={"md:w-8/12 m-auto"}>
             <CardBody className={"px-10 py-5 flex flex-row gap-4 items-start"}>
                 <Image src={"/avatar.png"} className={"w-10 h-10 min-w-unit-10"}/>
                 <div>

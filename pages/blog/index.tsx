@@ -91,7 +91,7 @@ export default function Blog({blog}: Props) {
                        </span>
                 </div>
             </div>
-            <Card>
+            <Card className={"md:w-8/12 m-auto"}>
                 <CardBody className={"py-6 px-10"}>
                     {
                         state.content?.scope && (

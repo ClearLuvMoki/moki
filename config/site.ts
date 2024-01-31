@@ -8,10 +8,10 @@ export const siteConfig = {
             label: "Home",
             href: "/",
         },
-        {
-            label: "Fragment",
-            href: "/fragment"
-        }
+        // {
+        //     label: "Fragment",
+        //     href: "/fragment"
+        // }
     ],
     navMenuItems: [
     ],
