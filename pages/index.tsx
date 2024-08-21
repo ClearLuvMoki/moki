@@ -2,7 +2,7 @@ import DefaultLayout from "@/layouts/default";
 import {GetStaticProps} from "next";
 import * as fs from "fs";
 import * as path from "path";
-import MDXCard from "@/components/MDXCard";
+import BlogCard from "@/components/blog-card";
 
 interface Props {
     files: {
@@ -56,7 +56,7 @@ export default function IndexPage({files}: Props) {
                 <div className={"w-full lg:w-[900px] xl:w-[1100px]"}>
                     {
                         (files || []).map((md, index) => (
-                            <MDXCard
+                            <BlogCard
                                 key={index}
                                 path={md.path}
                                 content={md.content}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MDXComponents = {
+const MarkdownComponents = {
     h1: (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>) => (
         <h1 {...props} className={"text-3xl font-bold border-b-1 pb-2 mb-6"}>
             {props.children}
@@ -28,4 +28,4 @@ const MDXComponents = {
     ),
 };
 
-export default MDXComponents;
+export default MarkdownComponents;

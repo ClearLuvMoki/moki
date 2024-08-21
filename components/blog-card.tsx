@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {serialize} from 'next-mdx-remote/serialize'
 import {Card, CardBody, Image} from "@nextui-org/react";
 import {CalendarDays} from "lucide-react";
-import dayjs from "dayjs";
 import {useRouter} from "next/router";
-import {CryptoSearchKey} from "@/utils/tools";
+import {CryptoSearchKey, RenderTransformMarkdown} from "@/utils/tools";
+import {FrontMatterType} from "@/types";
 
 
 interface Props {
@@ -12,25 +11,20 @@ interface Props {
     content: string;
 }
 
-const MDXCard = ({path, content}: Props) => {
+const BlogCard = ({path, content}: Props) => {
     const router = useRouter()
 
-    const [main, setMain] = useState<{
-        title: string;
-        date: Date;
-        updated: Date;
-        author?: string;
-        excerpt?: string;
-        img?: string;
-    } | null>(null)
+    const [main, setMain] = useState<FrontMatterType| null>(null)
 
     useEffect(() => {
-        serialize(content, {
-            parseFrontmatter: true,
-        })
-            .then((res) => {
-                setMain(res?.frontmatter as any || null)
-            })
+        if(content) {
+            RenderTransformMarkdown(content)
+                .then((res) => {
+                    if(res?.frontMatter) {
+                        setMain(res?.frontMatter)
+                    }
+                })
+        }
     }, [content])
 
     const handleClick = () => {
@@ -73,7 +67,7 @@ const MDXCard = ({path, content}: Props) => {
                             <div className={"flex gap-1 items-center text-sm text-gray-400 mt-4 " +
                                 "md:mt-0"}>
                                 <CalendarDays size={20}/>
-                                <span>{dayjs(main?.date).format("YYYY-MM-DD")}</span>
+                                <span>{main?.date}</span>
                             </div>
                         )
                     }
@@ -83,6 +77,6 @@ const MDXCard = ({path, content}: Props) => {
     );
 };
 
-export default MDXCard;
+export default BlogCard;
 
 

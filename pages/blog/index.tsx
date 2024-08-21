@@ -1,45 +1,34 @@
 import React, {useEffect} from 'react';
-import {serialize} from 'next-mdx-remote/serialize'
-import {MDXRemote, MDXRemoteSerializeResult} from 'next-mdx-remote'
-import {CryptoSearchKey} from "@/utils/tools";
+import {CryptoSearchKey, RenderTransformMarkdown} from "@/utils/tools";
 import {GetServerSideProps} from "next";
 import {useSetState} from "react-use";
-import slug from 'remark-slug'; // 为html标签添加id（锚点跳转）
-import remarkGfm from 'remark-gfm';// 渲染表格插件
 import {Card, CardBody} from "@nextui-org/react";
-import MDXComponents from "@/components/MDXComponents";
-import {useTheme} from "next-themes"
-import {BarChartBig, CalendarDays, ClipboardEdit, Hourglass} from "lucide-react";
-import dayjs from "dayjs";
-import reading from "reading-time";
 import {Typewriter} from "react-simple-typewriter"
+import {BarChartBig, CalendarDays, ClipboardEdit, Hourglass} from "lucide-react";
+import reading from "reading-time";
 import DefaultLayout from "@/layouts/default";
+import {MarkdownType} from "@/types";
+import MarkdownRender from "@/components/markdown-render";
 
 interface Props {
-    blog: {
-        source: string;
-        content: string;
-    };
+    content: string;
 }
 
-interface State {
-    content: MDXRemoteSerializeResult | null;
-}
-
-export default function Blog({blog}: Props) {
-    const {theme} = useTheme();
-    const [state, setState] = useSetState<State>({
-        content: null
+export default function Blog({content}: Props) {
+    const [state, setState] = useSetState<MarkdownType>({
+        frontMatter: null,
+        content: ""
     })
 
     useEffect(() => {
-        if (blog) {
-            console.log(JSON.parse(blog?.source), 'bbb')
-            setState({
-                content: JSON.parse(blog?.source)
+        RenderTransformMarkdown(content)
+            .then((res) => {
+                setState({
+                    frontMatter: res?.frontMatter,
+                    content: res?.content || ""
+                })
             })
-        }
-    }, [blog])
+    }, [content])
 
 
     return (
@@ -50,7 +39,7 @@ export default function Blog({blog}: Props) {
                         loop={true}
                         cursor
                         cursorStyle='_'
-                        words={[state.content?.frontmatter?.title as string]}
+                        words={[state?.frontMatter?.title as string]}
                         delaySpeed={3000}
                     />
                 </div>
@@ -60,7 +49,7 @@ export default function Blog({blog}: Props) {
                                size={16}
                            />
                            <span>
-                               {state?.content?.frontmatter?.author as string}
+                               {state?.frontMatter?.author as string}
                            </span>
                        </span>
                     <span className={"flex justify-center items-center gap-2"}>
@@ -68,7 +57,7 @@ export default function Blog({blog}: Props) {
                                size={16}
                            />
                            <span>
-                               {state?.content?.frontmatter?.date as string ? dayjs(state?.content?.frontmatter?.date as Date || "").format("YYYY-MM-DD") : "2000-01-01"}
+                               {state?.frontMatter?.date || "2000-01-01"}
                            </span>
                        </span>
                 </div>
@@ -78,7 +67,7 @@ export default function Blog({blog}: Props) {
                                size={16}
                            />
                            <span>
-                               {reading(blog?.content || "").words}
+                               {reading(state?.content || "").words}
                            </span>
                        </span>
                     <span className={"flex justify-center items-center gap-2"}>
@@ -86,7 +75,7 @@ export default function Blog({blog}: Props) {
                                size={16}
                            />
                            <span>
-                               {reading(blog?.content || "").text}
+                               {reading(state?.content || "").text}
                            </span>
                        </span>
                 </div>
@@ -94,13 +83,11 @@ export default function Blog({blog}: Props) {
             <Card className={"md:w-8/12 m-auto"}>
                 <CardBody className={"py-6 px-10"}>
                     {
-                        state.content?.scope && (
-                            <MDXRemote
-                                {...state.content}
-                                components={{
-                                    ...MDXComponents,
-                                }}
-                            />
+                        state.content && (
+                            <MarkdownRender
+                            >
+                                {state.content}
+                            </MarkdownRender>
                         )
                     }
                 </CardBody>
@@ -111,34 +98,12 @@ export default function Blog({blog}: Props) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const fs = require("fs");
-    const toc = require("@jsdevtools/rehype-toc"); // 生成目录
-    const rehypePrism = require('@mapbox/rehype-prism'); // 添加代码高亮
-
-    let tocElement;
     const path = CryptoSearchKey.deCode(context.query.path as string);
     const content = fs.readFileSync(path, "utf-8");
-    const mdxSource = await serialize(content, {
-        scope: {},
-        mdxOptions: {
-            remarkPlugins: [slug, remarkGfm],
-            rehypePlugins: [rehypePrism, [toc, {
-                headings: ['h1', 'h2', 'h3', 'h4'],
-                customizeTOC: (tocAll: any) => {
-                    tocElement = tocAll
-                    return false
-                }
-            }]],
-            format: 'mdx'
-        },
-        parseFrontmatter: true
-    })
 
     return {
         props: {
-            blog: {
-                source: JSON.stringify(mdxSource),
-                content
-            }
+            content
         }
     }
 }
