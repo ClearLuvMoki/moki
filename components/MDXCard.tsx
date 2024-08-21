@@ -53,7 +53,7 @@ const MDXCard = ({path, content}: Props) => {
                 <Image
                     isZoomed
                     isBlurred
-                    src={`/images/${main?.img}`}
+                    src={main?.img ? main?.img?.startsWith("http") ? main?.img : `/images/${main?.img}`: ""}
                     className={"w-[270px] h-[160px]"}
                 />
                 <article

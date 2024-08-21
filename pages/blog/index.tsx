@@ -15,7 +15,6 @@ import reading from "reading-time";
 import {Typewriter} from "react-simple-typewriter"
 import DefaultLayout from "@/layouts/default";
 
-
 interface Props {
     blog: {
         source: string;
@@ -35,6 +34,7 @@ export default function Blog({blog}: Props) {
 
     useEffect(() => {
         if (blog) {
+            console.log(JSON.parse(blog?.source), 'bbb')
             setState({
                 content: JSON.parse(blog?.source)
             })
