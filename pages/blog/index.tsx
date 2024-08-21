@@ -3,12 +3,12 @@ import {CryptoSearchKey, RenderTransformMarkdown} from "@/utils/tools";
 import {GetServerSideProps} from "next";
 import {useSetState} from "react-use";
 import {Card, CardBody} from "@nextui-org/react";
-import {Typewriter} from "react-simple-typewriter"
-import {BarChartBig, CalendarDays, ClipboardEdit, Hourglass} from "lucide-react";
 import reading from "reading-time";
 import DefaultLayout from "@/layouts/default";
 import {MarkdownType} from "@/types";
 import MarkdownRender from "@/components/markdown-render";
+import {BarChartBig, CalendarDays, ClipboardEdit, Hourglass} from "lucide-react";
+import {Typewriter} from "react-simple-typewriter";
 
 interface Props {
     content: string;
@@ -80,7 +80,7 @@ export default function Blog({content}: Props) {
                        </span>
                 </div>
             </div>
-            <Card className={"md:w-8/12 m-auto"}>
+            <Card className={"lg:w-8/12 md:w-10/12 m-auto"}>
                 <CardBody className={"py-6 px-10"}>
                     {
                         state.content && (

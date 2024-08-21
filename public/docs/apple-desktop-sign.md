@@ -12,8 +12,8 @@ excerpt: Electron配置上架MAS
 
 ## Core package version
 
-+ electron: 30.0.8
-+ electron-builder:  24.13.3
+- `electron`: 30.0.8
+- `electron-builder`:  24.13.3
 
 
 

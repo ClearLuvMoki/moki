@@ -26,6 +26,16 @@ const MarkdownComponents = {
             {props.children}
         </h2>
     ),
+    ul:(props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLUListElement>, HTMLUListElement>) => (
+        <ul {...props} className={"list-disc list-inside"}>
+            {props.children}
+        </ul>
+    ),
+    ol:(props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLOListElement>, HTMLOListElement>) => (
+        <ol {...props} className={"list-decimal list-inside"}>
+            {props.children}
+        </ol>
+    ),
 };
 
 export default MarkdownComponents;
