@@ -1,25 +1,25 @@
-import React from 'react';
+import React, {HTMLAttributes} from 'react';
 import {Image} from "@nextui-org/react"
 import CodeRender from "@/components/code-render";
 
 const MarkdownComponents = {
     h1: (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>) => (
-        <h1 {...props} className={"text-3xl font-bold border-b-1 pb-2 mb-6"}>
+        <h1 {...props} className={"text-3xl font-bold border-b-1 pb-4 my-6"}>
             {props.children}
         </h1>
     ),
     h2: (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>) => (
-        <h2 {...props} className={"text-2xl font-bold mb-4"}>
+        <h2 {...props} className={"text-2xl font-bold my-4"}>
             {props.children}
         </h2>
     ),
     h3: (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>) => (
-        <h2 {...props} className={"text-2xl font-bold mb-4"}>
+        <h2 {...props} className={"text-xl font-bold my-4"}>
             {props.children}
         </h2>
     ),
     h4: (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>) => (
-        <h2 {...props} className={"text-xl font-bold mb-4"}>
+        <h2 {...props} className={"text-xl font-bold my-4"}>
             {props.children}
         </h2>
     ),
@@ -38,6 +38,14 @@ const MarkdownComponents = {
             {props.children}
         </ol>
     ),
+    a: (props: React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>) => {
+        return <a
+            {...props}
+            className="underline underline-offset-2"
+        >
+            {props?.children}
+        </a>
+    },
     img: (props: React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>) => {
         const alt = props?.alt;
         return <div
