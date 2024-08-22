@@ -39,7 +39,7 @@ export default function Blog({content}: Props) {
                         loop={true}
                         cursor
                         cursorStyle='_'
-                        words={[state?.frontMatter?.title as string]}
+                        words={state?.frontMatter?.title ? [state?.frontMatter?.title as string] : ["_"]}
                         delaySpeed={3000}
                     />
                 </div>
@@ -67,7 +67,7 @@ export default function Blog({content}: Props) {
                                size={16}
                            />
                            <span>
-                               {reading(state?.content || "").words}
+                               {state?.content ? reading(state?.content || "")?.words : ""}
                            </span>
                        </span>
                     <span className={"flex justify-center items-center gap-2"}>
@@ -75,7 +75,7 @@ export default function Blog({content}: Props) {
                                size={16}
                            />
                            <span>
-                               {reading(state?.content || "").text}
+                               {state?.content ? reading(state?.content || "")?.text : ""}
                            </span>
                        </span>
                 </div>

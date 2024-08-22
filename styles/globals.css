@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    .moki-inline-code {
+        pre, code {
+            padding: 0 !important;
+            margin: 0 !important;
+            color: currentColor !important;
+            background-color: transparent !important;
+        }
+    }
+
+
+    ul, ol {
+        ul, ol {
+            padding-left: 20px;
+        }
+    }
+}
