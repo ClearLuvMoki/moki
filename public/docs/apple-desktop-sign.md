@@ -1,7 +1,7 @@
 ---
 title: Electron 上架 Mac store
-date: 2024-08-21
-updated: 2024-8-21
+date: 2024-04-21
+updated: 2024-04-21
 author: 徐牧之啊
 img: electron-mac.jpg
 excerpt: Electron上架Mac Store全流程
