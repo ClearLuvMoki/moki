@@ -4,9 +4,11 @@ date: 2024-08-21
 updated: 2024-8-21
 author: 徐牧之啊
 img: electron-mac.jpg
-excerpt: Electron配置上架MAS
+excerpt: Electron上架Mac Store全流程
 ---
 # Electron 上架 Mac store
+
+> 开始前需要购买 Apple Developer 账号，¥688一年
 
 ## Core package version
 + `electron`: 30.0.8
@@ -39,7 +41,7 @@ excerpt: Electron配置上架MAS
 </div>
 
 ## Additional entitlements
-对应三个权限文件，按照[Electron官网](https://www.electronjs.org/docs/latest/tutorial/mac-app-store-submission-guide#additional-entitlements)设置如果没有特殊的权限设置，默认如下：
+对应三个权限文件，按照[Electron官网](https://www.electronjs.org/docs/latest/tutorial/mac-app-store-submission-guide#additional-entitlements)设置，如果没有特殊的权限设置，默认如下：
 ### 1. entitlements.mas.plist
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>

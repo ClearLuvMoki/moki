@@ -65,6 +65,9 @@ const MarkdownComponents = {
             }
         </div>
     },
+    blockquote: (props: React.DetailedHTMLProps<React.BlockquoteHTMLAttributes<HTMLQuoteElement>, HTMLQuoteElement>) => (
+      <blockquote {...props} className="ml-2 pl-2 border-l-4 border-l-zinc-500 text-zinc-500 my-4">{props?.children}</blockquote>
+    ),
     code: (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>) => {
         const {children, className} = props;
         const isInline = children && !Boolean((children as string)?.includes("\n"));

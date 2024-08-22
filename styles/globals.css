@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 @layer base {
+    blockquote {
+        * {
+            margin: 0 !important;
+        }
+    }
     .moki-inline-code {
         pre, code {
             padding: 0 !important;
