@@ -1,20 +1,25 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {CryptoSearchKey, RenderTransformMarkdown} from "@/utils/tools";
 import {GetServerSideProps} from "next";
 import {useSetState} from "react-use";
 import {Card, CardBody} from "@nextui-org/react";
 import reading from "reading-time";
+import {Typewriter} from "react-simple-typewriter";
+import {BarChartBig, CalendarDays, ClipboardEdit, Hourglass, ListTree} from "lucide-react";
 import DefaultLayout from "@/layouts/default";
 import {MarkdownType} from "@/types";
 import MarkdownRender from "@/components/markdown-render";
-import {BarChartBig, CalendarDays, ClipboardEdit, Hourglass} from "lucide-react";
-import {Typewriter} from "react-simple-typewriter";
+import TableContents from "@/components/table-contents";
 
 interface Props {
+    navList: {
+        content: string;
+        level: number;
+    }[];
     content: string;
 }
 
-export default function Blog({content}: Props) {
+export default function Blog({navList, content}: Props) {
     const [state, setState] = useSetState<MarkdownType>({
         frontMatter: null,
         content: ""
@@ -29,7 +34,6 @@ export default function Blog({content}: Props) {
                 })
             })
     }, [content])
-
 
     return (
         <DefaultLayout>
@@ -80,29 +84,46 @@ export default function Blog({content}: Props) {
                        </span>
                 </div>
             </div>
-            <Card className={"lg:w-8/12 md:w-10/12 m-auto"}>
-                <CardBody className={"py-6 px-10"}>
-                    {
-                        state.content && (
-                            <MarkdownRender
-                            >
-                                {state.content}
-                            </MarkdownRender>
-                        )
-                    }
-                </CardBody>
-            </Card>
+            <div className="flex">
+                <div className="lg:w-2/12 md:w-1/12"></div>
+                <Card className={"lg:w-8/12 md:w-10/12"}>
+                    <CardBody className={"py-6 px-10"}>
+                        {
+                            state.content && (
+                                <MarkdownRender
+                                >
+                                    {state.content}
+                                </MarkdownRender>
+                            )
+                        }
+                    </CardBody>
+                </Card>
+                {/* 目录 */}
+                <div className="lg:w-2/12 md:w-1/12 px-4 hidden lg:block">
+                    <TableContents
+                        navList={navList}
+                    />
+                </div>
+            </div>
         </DefaultLayout>
     );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const fs = require("fs");
+    var toc = require('markdown-toc');
     const path = CryptoSearchKey.deCode(context.query.path as string);
     const content = fs.readFileSync(path, "utf-8");
+    const navList = (toc(content).json || []).map((item: any) => {
+        return {
+            level: item.lvl,
+            content: item.content || ""
+        }
+    }).filter((item: any) => item.content)
 
     return {
         props: {
+            navList,
             content
         }
     }

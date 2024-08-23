@@ -1,3 +1,4 @@
+import React from "react";
 import { Navbar } from "@/components/navbar";
 import { Link } from "@nextui-org/link";
 import { Head } from "./head";
@@ -8,7 +9,7 @@ export default function DefaultLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<div className="relative flex flex-col">
+		<React.Fragment>
 			<Head />
 			<Navbar />
 			<main className="container mx-auto max-w-7xl px-6 flex-grow">
@@ -16,6 +17,6 @@ export default function DefaultLayout({
 			</main>
 			<footer className={"h-40 w-full"}>
 			</footer>
-		</div>
+		</React.Fragment>
 	);
 }

@@ -2,6 +2,7 @@ import DefaultLayout from "@/layouts/default";
 import {GetStaticProps} from "next";
 import * as fs from "fs";
 import * as path from "path";
+import matter from 'gray-matter';
 import BlogCard from "@/components/blog-card";
 
 interface Props {
@@ -31,13 +32,19 @@ function getLocalMdFiles(dir: string) {
         } else {
             const filePath = path.resolve(name);
             const content = fs.readFileSync(filePath, "utf-8")
+            const transformData = matter(content);
             filesContent.push({
+                date: transformData.data?.date || "",
                 path: filePath,
                 content
             });
         }
     }
-    return filesContent;
+    filesContent = (filesContent || [])?.sort((pre, next) => next.date - pre.date).map(item => {return {
+        path: item.path,
+        content: item.content
+    }})
+    return filesContent
 }
 
 

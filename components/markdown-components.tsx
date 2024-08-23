@@ -4,29 +4,29 @@ import CodeRender from "@/components/code-render";
 
 const MarkdownComponents = {
     h1: (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>) => (
-        <h1 {...props} className={"text-3xl font-bold border-b-1 pb-4 my-6"}>
+        <h1 className={"text-3xl font-bold border-b-1 pb-4 my-6"} id={`${props?.children}`}>
             {props.children}
         </h1>
     ),
     h2: (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>) => (
-        <h2 {...props} className={"text-2xl font-bold my-4"}>
+        <h2 className={"text-2xl font-bold my-4"} id={`${props?.children}`}>
             {props.children}
         </h2>
     ),
     h3: (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>) => (
-        <h2 {...props} className={"text-xl font-bold my-4"}>
+        <h2 className={"text-xl font-bold my-4"} id={`${props?.children}`}>
             {props.children}
         </h2>
     ),
     h4: (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>) => (
-        <h2 {...props} className={"text-xl font-bold my-4"}>
+        <h2 className={"text-xl font-bold my-4"} id={`${props?.children}`}>
             {props.children}
         </h2>
     ),
     p: (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>) => (
-        <h2 {...props} className={"text-base mb-2"}>
+        <div {...props} className={"text-base mb-2"}>
             {props.children}
-        </h2>
+        </div>
     ),
     ul: (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLUListElement>, HTMLUListElement>) => (
         <ul {...props} className={"list-disc list-inside"}>
