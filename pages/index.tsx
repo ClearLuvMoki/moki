@@ -1,5 +1,5 @@
 import DefaultLayout from "@/layouts/default";
-import {GetStaticProps} from "next";
+import {GetServerSideProps} from "next";
 import * as fs from "fs";
 import * as path from "path";
 import matter from 'gray-matter';
@@ -11,45 +11,6 @@ interface Props {
         content: string;
     }[];
 }
-
-export const getStaticProps: GetStaticProps = async () => {
-    const files = getLocalMdFiles(path.resolve("./public/docs"));
-    return {
-        props: {
-            files: (files || []),
-        },
-    };
-};
-
-
-function getLocalMdFiles(dir: string) {
-    let filesContent: any[] = [];
-    const files = fs.readdirSync(dir);
-    for (let i in files) {
-        let name = path.resolve(dir + '/' + files[i]);
-        if (fs.statSync(name).isDirectory()) {
-            filesContent = filesContent.concat(getLocalMdFiles(name) || []);
-        } else {
-            const filePath = path.resolve(name);
-            const fileName = path.parse(filePath)?.base;
-            if(fileName && !fileName.startsWith("_")) {
-                const content = fs.readFileSync(filePath, "utf-8")
-                const transformData = matter(content);
-                filesContent.push({
-                    date: transformData.data?.date || "",
-                    path: filePath,
-                    content
-                });
-            }
-        }
-    }
-    filesContent = (filesContent || [])?.sort((pre, next) => next.date - pre.date).map(item => {return {
-        path: item.path,
-        content: item.content
-    }})
-    return filesContent
-}
-
 
 export default function IndexPage({files}: Props) {
     return (
@@ -78,5 +39,47 @@ export default function IndexPage({files}: Props) {
         </DefaultLayout>
     );
 }
+
+
+export const getServerSideProps: GetServerSideProps = async () => {
+    const files = getLocalMdFiles(path.resolve("./public/docs"));
+    return {
+        props: {
+            files: (files || []),
+        },
+    };
+};
+
+
+function getLocalMdFiles(dir: string) {
+    let filesContent: any[] = [];
+    const files = fs.readdirSync(dir);
+    for (let i in files) {
+        let name = path.resolve(dir + '/' + files[i]);
+        if (fs.statSync(name).isDirectory()) {
+            filesContent = filesContent.concat(getLocalMdFiles(name) || []);
+        } else {
+            const filePath = path.resolve(name);
+            const fileName = path.parse(filePath)?.base;
+            if (fileName && !fileName.startsWith("_")) {
+                const content = fs.readFileSync(filePath, "utf-8")
+                const transformData = matter(content);
+                filesContent.push({
+                    date: transformData.data?.date || "",
+                    path: filePath,
+                    content
+                });
+            }
+        }
+    }
+    filesContent = (filesContent || [])?.sort((pre, next) => next.date - pre.date).map(item => {
+        return {
+            path: item.path,
+            content: item.content
+        }
+    })
+    return filesContent
+}
+
 
 
