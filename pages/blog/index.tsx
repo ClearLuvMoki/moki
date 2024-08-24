@@ -110,6 +110,7 @@ export default function Blog({navList, content}: Props) {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+    context.res.setHeader('Cache-Control', 'no-store');
     const fs = require("fs");
     var toc = require('markdown-toc');
     const path = CryptoSearchKey.deCode(context.query.path as string);
