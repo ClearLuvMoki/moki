@@ -1,5 +1,7 @@
-import React, {HTMLAttributes} from 'react';
+import 'react-photo-view/dist/react-photo-view.css';
+import React from 'react';
 import {Image} from "@nextui-org/react"
+import {PhotoProvider, PhotoView} from 'react-photo-view';
 import CodeRender from "@/components/code-render";
 
 const MarkdownComponents = {
@@ -48,25 +50,31 @@ const MarkdownComponents = {
     },
     img: (props: React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>) => {
         const alt = props?.alt;
-        return <div
-            className={`w-full my-4 sm:w-[45%]`}
-        >
-            <Image
-                isBlurred
-                alt={props?.alt}
-                src={props?.src}
-                classNames={{
-                    wrapper: props?.className || "w-full",
-                    img: "w-full"
-                }}
-            />
-            {
-                alt && (<div className="my-2 select-none font-bold text-sm flex justify-center">{`图(${alt})`}</div>)
-            }
-        </div>
+        return <PhotoProvider>
+            <div
+                className={`w-full my-4 sm:w-[45%]`}
+            >
+                <PhotoView src={props?.src}>
+                    <Image
+                        isBlurred
+                        alt={props?.alt}
+                        src={props?.src}
+                        classNames={{
+                            wrapper: props?.className || "w-full",
+                            img: "w-full"
+                        }}
+                    />
+                </PhotoView>
+                {
+                    alt && (
+                        <div className="my-2 select-none font-bold text-sm flex justify-center">{`图(${alt})`}</div>)
+                }
+            </div>
+        </PhotoProvider>
     },
     blockquote: (props: React.DetailedHTMLProps<React.BlockquoteHTMLAttributes<HTMLQuoteElement>, HTMLQuoteElement>) => (
-      <blockquote {...props} className="ml-2 pl-2 border-l-4 border-l-zinc-500 text-zinc-500 my-4">{props?.children}</blockquote>
+        <blockquote {...props}
+                    className="ml-2 pl-2 border-l-4 border-l-zinc-500 text-zinc-500 my-4">{props?.children}</blockquote>
     ),
     code: (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>) => {
         const {children, className} = props;
