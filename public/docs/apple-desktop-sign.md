@@ -184,4 +184,4 @@ module.exports = config
 需要使用创建`Certifications`的账号登录到[App Store Connet](https://appstoreconnect.apple.com/apps),然后填写要上架的APP信息，等到审核通过即可;
 
 ## Example
-[Moki Rss](https://github.com/ClearLuvMoki/Moki-RSS)
+[Moki RSS](https://github.com/ClearLuvMoki/Moki-RSS)

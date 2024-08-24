@@ -31,13 +31,16 @@ function getLocalMdFiles(dir: string) {
             filesContent = filesContent.concat(getLocalMdFiles(name) || []);
         } else {
             const filePath = path.resolve(name);
-            const content = fs.readFileSync(filePath, "utf-8")
-            const transformData = matter(content);
-            filesContent.push({
-                date: transformData.data?.date || "",
-                path: filePath,
-                content
-            });
+            const fileName = path.parse(filePath)?.base;
+            if(fileName && !fileName.startsWith("_")) {
+                const content = fs.readFileSync(filePath, "utf-8")
+                const transformData = matter(content);
+                filesContent.push({
+                    date: transformData.data?.date || "",
+                    path: filePath,
+                    content
+                });
+            }
         }
     }
     filesContent = (filesContent || [])?.sort((pre, next) => next.date - pre.date).map(item => {return {

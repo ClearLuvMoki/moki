@@ -84,6 +84,7 @@ exports.default = async function notarizing(context) {
 ## Tips
 
 上述中除了签名这一步是必须，并非是非要公证才能使用软件，可以在系统中如下设置依旧可以打开软件：
+
 <div style="display: flex;flex-wrap: wrap;justify-content: space-around;width:100%">
-<img src="https://moki-blog.oss-cn-chengdu.aliyuncs.com/moki-note/venturasudospctlmaster-disable1.jpg" width="45%" alt="Apple Certifications"/>
+<img src="https://moki-blog.oss-cn-chengdu.aliyuncs.com/moki-note/image-202408222333391509.png" width="45%" alt="Apple Certifications"/>
 </div>

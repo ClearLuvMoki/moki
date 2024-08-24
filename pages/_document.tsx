@@ -23,6 +23,7 @@ export default function Document() {
             <NextScript/>
             </body>
             <footer className="w-full flex flex-col items-center justify-center py-3 text-small text-default-600">
+
                 <Link
                     isExternal
                     href="https://beian.miit.gov.cn"
@@ -31,7 +32,7 @@ export default function Document() {
                     <span className="text-default-600 text-small">蜀ICP备2024095311号</span>
                 </Link>
                 <div>
-                    Copyright © 2019-20 ZkSky. | All Rights Reserved.
+                    Copyright © 2019-2024 徐牧之. | All Rights Reserved.
                 </div>
             </footer>
         </Html>
