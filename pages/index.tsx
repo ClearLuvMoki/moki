@@ -41,8 +41,7 @@ export default function IndexPage({files}: Props) {
 }
 
 
-export const getServerSideProps: GetServerSideProps = async ({res}) => {
-    res.setHeader('Cache-Control', 'no-store');
+export const getServerSideProps: GetServerSideProps = async () => {
     const files = getLocalMdFiles(path.resolve("./public/docs"));
     return {
         props: {
