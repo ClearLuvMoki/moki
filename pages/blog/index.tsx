@@ -1,11 +1,11 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect} from 'react';
 import {CryptoSearchKey, RenderTransformMarkdown} from "@/utils/tools";
 import {GetServerSideProps} from "next";
 import {useSetState} from "react-use";
 import {Card, CardBody} from "@nextui-org/react";
 import reading from "reading-time";
 import {Typewriter} from "react-simple-typewriter";
-import {BarChartBig, CalendarDays, ClipboardEdit, Hourglass, ListTree} from "lucide-react";
+import {BarChartBig, CalendarDays, ClipboardEdit, Hourglass} from "lucide-react";
 import DefaultLayout from "@/layouts/default";
 import {MarkdownType} from "@/types";
 import MarkdownRender from "@/components/markdown-render";
@@ -38,7 +38,7 @@ export default function Blog({navList, content}: Props) {
     return (
         <DefaultLayout>
             <div className={"m-auto flex flex-col justify-center items-center h-[500px]"}>
-                <div className={"text-4xl font-bold"}>
+                <div className={"text-4xl font-bold w-10/12 break-words"}>
                     <Typewriter
                         loop={true}
                         cursor
@@ -111,7 +111,7 @@ export default function Blog({navList, content}: Props) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const fs = require("fs");
-    var toc = require('markdown-toc');
+    const toc = require('markdown-toc');
     const path = CryptoSearchKey.deCode(context.query.path as string);
     const content = fs.readFileSync(path, "utf-8");
     const navList = (toc(content).json || []).map((item: any) => {

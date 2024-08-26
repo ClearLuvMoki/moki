@@ -4,18 +4,7 @@ import {Link} from "@nextui-org/link";
 export default function Document() {
     return (
         <Html lang="en">
-            <Head>
-                <meta
-                    name="author"
-                    content="徐牧之啊;ClearLuvMoki"
-                    key="author"
-                />
-                <meta
-                    name="desc"
-                    content="徐牧之啊的个人主页"
-                    key="desc"
-                />
-            </Head>
+            <Head/>
             <body
                 className={"min-h-screen bg-background font-sans antialiased "}
             >
@@ -23,7 +12,6 @@ export default function Document() {
             <NextScript/>
             </body>
             <footer className="w-full flex flex-col items-center justify-center py-3 text-small text-default-600">
-
                 <Link
                     isExternal
                     href="https://beian.miit.gov.cn"

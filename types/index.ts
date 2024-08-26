@@ -17,3 +17,9 @@ export interface MarkdownType {
   frontMatter: FrontMatterType | null;
   content: string;
 }
+
+
+export interface FilesType {
+  path: string;
+  content: string;
+}

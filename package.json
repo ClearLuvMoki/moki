@@ -46,6 +46,7 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
+    "cmdk": "^1.0.0",
     "react-photo-view": "^1.2.6"
   }
 }

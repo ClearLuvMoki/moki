@@ -4,17 +4,17 @@ import * as fs from "fs";
 import * as path from "path";
 import matter from 'gray-matter';
 import BlogCard from "@/components/blog-card";
+import {FilesType} from "@/types";
 
 interface Props {
-    files: {
-        path: string;
-        content: string;
-    }[];
+    files: FilesType[];
 }
 
 export default function IndexPage({files}: Props) {
     return (
-        <DefaultLayout>
+        <DefaultLayout
+            files={files}
+        >
             <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
                 <div className="inline-block max-w-lg text-center justify-center">
                     <h1 className={"tracking-tight inline font-semibold text-[2.3rem] lg:text-5xl leading-9"}>Moki</h1>

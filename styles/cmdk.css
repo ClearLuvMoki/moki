@@ -1,0 +1,184 @@
+/* cmd 样式 */
+html[class="dark"] {
+    [cmdk-dialog] {
+        background-color: hsl(0 0% 0% / .3);
+        backdrop-filter: blur(12px);
+    }
+
+    #moki-cmd[cmdk-root] {
+        background: rgba(22, 22, 22, 0.7);
+        border: 1px solid #343434;
+        box-shadow: 0 16px 70px rgba(0, 0, 0, .2)
+    }
+
+    #moki-cmd [cmdk-input] {
+        color: #fff;
+        border-bottom: 1px solid #343434;
+    }
+    #moki-cmd [cmdk-item] {
+        color: #a0a0a0;
+    }
+    #moki-cmd [cmdk-item][data-selected="true"] {
+        background: hsla(0,0%,100%,.056);
+        color: #ededed;
+    }
+    #moki-cmd [cmdk-separator] {
+        background: #343434;
+    }
+}
+
+
+[cmdk-dialog] {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#moki-cmd[cmdk-root] {
+    max-width: 640px;
+    width: 100%;
+    padding: 8px;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    font-family: 'Inter', --apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, 'Inter', --apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, 'Inter', --apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans;
+    box-shadow: 0 16px 70px rgb(0 0 0 / 20%);
+    transition: transform 100ms ease;
+    outline: none;
+}
+
+#moki-cmd [cmdk-input] {
+    font-family: 'Inter', --apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans,
+    Droid Sans, Helvetica Neue, sans-serif;
+    border: none;
+    width: 100%;
+    font-size: 17px;
+    padding: 8px 8px 16px 8px;
+    outline: none;
+    background: var(--bg);
+    color: hsl(0, 0%, 9%);
+    border-bottom: 1px solid hsl(0, 0%, 88.7%);
+    margin-bottom: 16px;
+    border-radius: 0;
+}
+
+#moki-cmd [cmdk-input]::placeholder {
+    color: hsl(0, 0%, 56.1%);
+}
+
+#moki-cmd [cmdk-vercel-badge] {
+    height: 20px;
+    background: hsla(0, 0%, 0%, 0.047);;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 8px;
+    font-size: 12px;
+    color: hsla(0, 0%, 0%, 0.565);;
+    border-radius: 4px;
+    margin: 4px 0 4px 4px;
+    user-select: none;
+    text-transform: capitalize;
+    font-weight: 500;
+}
+
+#moki-cmd [cmdk-item] {
+    content-visibility: auto;
+    cursor: pointer;
+    height: 48px;
+    border-radius: 8px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 16px;
+    color: hsl(0, 0%, 62.8%);
+    user-select: none;
+    will-change: background, color;
+    transition: all 150ms ease;
+    transition-property: none;
+}
+
+#moki-cmd [cmdk-item][data-selected="true"] {
+    background: hsla(0, 0%, 0%, 0.047);;
+    color: hsl(0, 0%, 9%);
+}
+
+
+#moki-cmd [cmdk-item]:active {
+    transition-property: background;
+    background: hsl(0, 0%, 15.8%);
+}
+
+#moki-cmd [cmdk-item] + [cmdk-item] {
+    margin-top: 4px;
+}
+
+#moki-cmd [cmdk-item] svg {
+    width: 18px;
+    height: 18px;
+}
+
+#moki-cmd [cmdk-list] {
+    height: min(330px, calc(var(--cmdk-list-height)));
+    max-height: 400px;
+    overflow: auto;
+    overscroll-behavior: contain;
+    transition: 100ms ease;
+    transition-property: height;
+}
+
+#moki-cmd [cmdk-vercel-shortcuts] {
+    display: flex;
+    margin-left: auto;
+    gap: 8px;
+}
+
+#moki-cmd [cmdk-vercel-shortcuts] kbd {
+    font-family: 'Inter', --apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans,
+    Droid Sans, Helvetica Neue, sans-serif;
+    font-size: 12px;
+    min-width: 20px;
+    padding: 4px;
+    height: 20px;
+    border-radius: 4px;
+    color: hsl(0, 0%, 62.8%);
+    background: hsl(0, 0%, 15.8%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+}
+
+#moki-cmd [cmdk-separator] {
+    height: 1px;
+    width: 100%;
+    background: hsl(0, 0%, 90.9%);
+    margin: 4px 0;
+}
+
+#moki-cmd *:not([hidden]) + [cmdk-group] {
+    margin-top: 8px;
+}
+
+#moki-cmd [cmdk-group-heading] {
+    user-select: none;
+    font-size: 12px;
+    color: hsl(0, 0%, 62.8%);
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+#moki-cmd [cmdk-empty] {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    white-space: pre-wrap;
+    color: hsl(0, 0%, 62.8%);
+}
