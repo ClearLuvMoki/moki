@@ -38,7 +38,7 @@ export default function Blog({navList, content}: Props) {
     return (
         <DefaultLayout>
             <div className={"m-auto flex flex-col justify-center items-center h-[500px]"}>
-                <div className={"text-4xl font-bold w-10/12 break-words"}>
+                <div className={"text-4xl font-bold flex justify-center w-10/12 break-words"}>
                     <Typewriter
                         loop={true}
                         cursor
