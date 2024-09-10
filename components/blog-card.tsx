@@ -46,6 +46,7 @@ const BlogCard = ({path, content}: Props) => {
                 "md:flex-row md:gap-8 "}>
                 <Image
                     isZoomed
+                    alt=''
                     isBlurred
                     src={main?.img ? main?.img?.startsWith("http") ? main?.img : `/images/${main?.img}`: ""}
                     className={"w-[270px] h-[160px]"}
