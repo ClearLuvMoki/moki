@@ -7,14 +7,16 @@ import MarkdownComponents from "@/components/markdown-components";
 
 interface Props {
     children: string;
+    className?: string;
 }
 
-const MarkdownRender = ({children}: Props) => {
+const MarkdownRender = ({ children, className }: Props) => {
     return (
         <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw]}
             components={MarkdownComponents}
+            className={className}
         >
             {children}
         </ReactMarkdown>

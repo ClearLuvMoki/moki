@@ -8,6 +8,7 @@ import { Typewriter } from 'react-simple-typewriter';
 
 interface Props {
   list: {
+    id: string;
     content: string
     images: string[];
   }[];
@@ -31,11 +32,12 @@ export default function MomentList({ list }: Props) {
           />
         </div>
       </div>
-      <div className="flex">
+      <div className={"w-full lg:w-[900px] xl:w-[1000px] m-auto"}>
         {
           (list || []).map((item, index) => {
             return <MomentCard
-              key={index}
+              key={item.id}
+              id={item.id}
               content={item.content}
               images={item.images}
             />
@@ -50,28 +52,48 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query } = context;
   const fs = require("fs");
   const year = query?.year;
-  const { resolve, extname } = require("path");
+  const { resolve, extname, parse } = require("path");
   const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp'];
   const dirPath = resolve("./public/moments/" + year)
 
-  const list = [];
+  let list: any[] = [];
   const childDir = fs.readdirSync(dirPath);
   for (let i in childDir) {
     let childDirPath = resolve(dirPath + '/' + childDir[i]);
     if (fs.statSync(childDirPath).isDirectory()) {
       const files = fs.readdirSync(childDirPath);
+      const childDirName = parse(childDirPath)?.name;
+      const indexArr = childDirName.split("-").map((item: string) => Number(item))
+      // moment 的正文
       const docPath = resolve(childDirPath + "/" + "index.md");
       const content = fs.readFileSync(docPath, "utf-8");
+      // moment 的 images
       const images = files.filter((file: any) => {
         const ext = extname(file).toLowerCase();
         return imageExtensions.includes(ext);
-      }).map((file: any) => "file://" + resolve(childDirPath, file)) || []
+      }).map((file: any) => `/moments/${year}/${childDirName}/${file}`) || []
       list.push({
+        id: `moki-moment-${year}-${childDirName}`,
+        month: indexArr[0] || -1,
+        day: indexArr[1] || -1,
         content,
         images
       })
+
     }
   }
+  list = (list || []).sort((prev, next) => {
+    if (prev.month === -1 && next.month !== -1) return 1;
+    if (next.month === -1 && prev.month !== -1) return -1;
+    if (prev.month === -1 && next.month === -1) {
+      if (prev.day === -1 && next.day !== -1) return 1;
+      if (next.day === -1 && prev.day !== -1) return -1;
+      if (prev.day === -1 && next.day === -1) return 0;
+      return prev.day - next.day;
+    }
+    if (prev.month !== next.month) return prev.month - next.month;
+    return prev.day - next.day;
+  });
 
   return {
     props: {

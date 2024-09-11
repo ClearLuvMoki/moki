@@ -1,4 +1,4 @@
-import {SVGProps} from "react";
+import { SVGProps } from "react";
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
@@ -22,4 +22,18 @@ export interface MarkdownType {
 export interface FilesType {
   path: string;
   content: string;
+}
+
+export interface ExifType {
+  latitude: number;
+  longitude: number;
+  date: string;
+  iso: number;
+  altitude: number;
+  whiteBalance: string;
+  focalLength: number;
+  fNumber: number;
+  exposureTime: number;
+  brightnessValue: number;
+  flash: string;
 }
