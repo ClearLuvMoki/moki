@@ -179,12 +179,12 @@ const MomentCard = ({ id, images, content }: Props) => {
                                             isZoomed
                                             isBlurred
                                             src={item?.base64}
-                                            classNames={{
-                                                img: {
-                                                    "w-[300px]": url && url.length === 1,
-                                                    "h-[200px]": url && url.length >= 2
-                                                },
-                                            }}
+                                            // classNames={{
+                                            //     img: {
+                                            //         "w-[300px]": url && url.length === 1,
+                                            //         "h-[200px]": url && url.length >= 2
+                                            //     },
+                                            // }}
                                             onClick={() => {
                                                 setModalState({
                                                     open: true,

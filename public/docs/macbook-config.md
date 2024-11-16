@@ -3,7 +3,7 @@ title: MacBook Config
 date: 2020-12-27
 updated: 2020-12-27
 author: 徐牧之啊
-img: macBook.jpg
+img: macbook.jpg
 excerpt: Macbook的简单配置
 ---
 
