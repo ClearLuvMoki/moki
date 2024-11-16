@@ -130,7 +130,7 @@ const MomentCard = ({ id, images, content }: Props) => {
                 }
             }))
                 .then((promiseRes) => {
-                    const res = promiseRes.filter(item => item.status === "fulfilled").map(item => item.value);
+                    const res = promiseRes.filter(item => item.status === "fulfilled").map(item => item?.value);
                     setUrl(res as any);
                 })
                 .finally(() => setLoading(false))
