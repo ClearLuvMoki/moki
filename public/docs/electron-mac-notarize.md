@@ -1,7 +1,7 @@
 ---
 title: Electron Mac 公证
-date: 2021-11-21
-updated: 2021-11-21
+date: 2023-11-21
+updated: 2023-11-21
 author: 徐牧之啊
 img: electron-notarize.jpg
 excerpt: Electron Mac 在 MAS 外的分发以及公证

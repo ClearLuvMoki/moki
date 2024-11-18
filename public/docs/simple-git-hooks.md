@@ -3,7 +3,7 @@ title: Simple git hook
 date: 2021-5-15
 updated: 2021-5-15
 author: 徐牧之啊
-img: macbook.jpg
+img: git.jpg
 excerpt: Git 提交的简单规范化
 ---
 
