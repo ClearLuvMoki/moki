@@ -1,7 +1,7 @@
 # Moki Blog
 
 ## Pull Code
-+ nvm
++ cd /usr/local/Moki-Blog
 + sudo npm run build
 + pm2 start ./.next/standalone/server.js  --name next-blog
 
