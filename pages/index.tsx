@@ -72,7 +72,7 @@ function getLocalMdFiles(dir: string) {
             }
         }
     }
-    filesContent = (filesContent || [])?.sort((pre, next) => next.date - pre.date).map(item => {
+    filesContent = (filesContent || [])?.sort((pre, next) => (new Date(next.date) as any) - (new Date(pre.date) as any)).map(item => {
         return {
             path: item.path,
             content: item.content
