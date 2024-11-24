@@ -1,7 +1,7 @@
 ---
 title: Hexo部署至云服务器
-date: 2020-02-23 23:24
-updated: 2020-02-23 23:24
+createDate: 2020-02-23 23:24
+updateDate: 2020-02-23 23:24
 img: hexo.jpg
 excerpt: Hexo 部署至云服务的最简实践
 ---

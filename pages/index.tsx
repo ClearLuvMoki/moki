@@ -65,7 +65,7 @@ function getLocalMdFiles(dir: string) {
                 const content = fs.readFileSync(filePath, "utf-8")
                 const transformData = matter(content);
                 filesContent.push({
-                    date: transformData.data?.date || "",
+                    date: transformData.data?.createDate || "",
                     path: filePath,
                     content
                 });

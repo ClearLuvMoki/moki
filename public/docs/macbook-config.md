@@ -1,7 +1,7 @@
 ---
 title: MacBook Config
-date: 2020-12-27
-updated: 2020-12-27
+createDate: 2020-12-27
+updateDate: 2024-11-20
 author: 徐牧之啊
 img: macbook.jpg
 excerpt: Macbook的简单配置

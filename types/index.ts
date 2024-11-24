@@ -9,8 +9,8 @@ export interface FrontMatterType {
   author: string;
   excerpt: string; // 简介
   img: string; // 封面
-  date: string; // 创建日期
-  updated: string; // 更新日期
+  updateDate: string; // 更新日期
+  createDate: string; // 创建日期
 }
 
 export interface MarkdownType {

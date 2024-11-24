@@ -1,7 +1,7 @@
 ---
 title: Simple git hook
-date: 2021-5-15
-updated: 2021-5-15
+createDate: 2021-5-15
+updateDate: 2021-5-15
 author: 徐牧之啊
 img: git.jpg
 excerpt: Git 提交的简单规范化

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Card, CardBody, Image} from "@nextui-org/react";
-import {CalendarDays} from "lucide-react";
+import {CalendarDays, History} from "lucide-react";
 import {useRouter} from "next/router";
 import {CryptoSearchKey, RenderTransformMarkdown} from "@/utils/tools";
 import {FrontMatterType} from "@/types";
@@ -14,13 +14,13 @@ interface Props {
 const BlogCard = ({path, content}: Props) => {
     const router = useRouter()
 
-    const [main, setMain] = useState<FrontMatterType| null>(null)
+    const [main, setMain] = useState<FrontMatterType | null>(null)
 
     useEffect(() => {
-        if(content) {
+        if (content) {
             RenderTransformMarkdown(content)
                 .then((res) => {
-                    if(res?.frontMatter) {
+                    if (res?.frontMatter) {
                         setMain(res?.frontMatter)
                     }
                 })
@@ -48,7 +48,7 @@ const BlogCard = ({path, content}: Props) => {
                     isZoomed
                     alt=''
                     isBlurred
-                    src={main?.img ? main?.img?.startsWith("http") ? main?.img : `/images/${main?.img}`: ""}
+                    src={main?.img ? main?.img?.startsWith("http") ? main?.img : `/images/${main?.img}` : ""}
                     className={"w-[270px] h-[160px]"}
                 />
                 <article
@@ -63,15 +63,27 @@ const BlogCard = ({path, content}: Props) => {
                         <h4 className="font-bold text-large">{main?.title}</h4>
                         <h5 className="text-gray-500 line-clamp-3">{main?.excerpt}</h5>
                     </div>
-                    {
-                        main?.date && (
-                            <div className={"flex gap-1 items-center text-sm text-gray-400 mt-4 " +
-                                "md:mt-0"}>
-                                <CalendarDays size={20}/>
-                                <span>{main?.date}</span>
-                            </div>
-                        )
-                    }
+                    <div className="flex gap-4">
+                        {
+                            main?.createDate && (
+                                <div className={"flex gap-1 items-center text-sm text-gray-400 mt-4 " +
+                                    "md:mt-0"}>
+                                    <CalendarDays size={20}/>
+                                    <span>{main?.createDate}</span>
+                                </div>
+                            )
+                        }
+                        {
+                            main?.updateDate && (
+                                <div className={"flex gap-1 items-center text-sm text-gray-400 mt-4 " +
+                                    "md:mt-0"}>
+                                    <History size={20}/>
+                                    <span>{main?.updateDate}</span>
+                                </div>
+                            )
+                        }
+                    </div>
+
                 </article>
             </CardBody>
         </Card>

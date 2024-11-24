@@ -33,8 +33,8 @@ export const RenderTransformMarkdown = (content: string): Promise<MarkdownType |
                     img: res.data?.img || "",
                     author: res.data?.author || "",
                     excerpt: res.data?.excerpt || "",
-                    date: res.data?.date ? dayjs(res.data?.date).format("YYYY-MM-DD") : "",
-                    updated: res.data?.updated ? dayjs(res.data?.updated).format("YYYY-MM-DD") : "",
+                    createDate: res.data?.createDate ? dayjs(res.data?.createDate).format("YYYY-MM-DD") : "",
+                    updateDate: res.data?.updateDate ? dayjs(res.data?.updateDate).format("YYYY-MM-DD") : "",
                 },
                 content: res.content || ""
             })
