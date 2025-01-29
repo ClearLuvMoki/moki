@@ -1,5 +1,5 @@
 import { convertToBase64, RenderTransformMarkdown } from '@/utils/tools';
-import { Card, CardBody, cn, image, Image, Skeleton } from '@nextui-org/react'
+import { Card, CardBody, cn, image, Image, Skeleton } from '@heroui/react'
 import React, { useEffect, useState } from 'react'
 import EXIF from "exif-js";
 import { ExifType, MarkdownType } from '@/types';

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Typewriter } from 'react-simple-typewriter'
-import { Button } from "@nextui-org/react"
+import { Button } from "@heroui/react"
 import DefaultLayout from '@/layouts/default'
 import { useRouter } from "next/router";
 import { ArrowRight } from 'lucide-react';

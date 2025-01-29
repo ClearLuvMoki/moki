@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Card, CardBody, Image} from "@nextui-org/react";
+import {Card, CardBody, Image} from "@heroui/react";
 import {CalendarDays, History} from "lucide-react";
 import {useRouter} from "next/router";
 import {CryptoSearchKey, RenderTransformMarkdown} from "@/utils/tools";
@@ -21,6 +21,7 @@ const BlogCard = ({path, content}: Props) => {
             RenderTransformMarkdown(content)
                 .then((res) => {
                     if (res?.frontMatter) {
+                        console.log(res.frontMatter, ';;;')
                         setMain(res?.frontMatter)
                     }
                 })
@@ -46,10 +47,12 @@ const BlogCard = ({path, content}: Props) => {
                 "md:flex-row md:gap-8 "}>
                 <Image
                     isZoomed
-                    alt=''
+                    alt="HeroUI hero Image"
                     isBlurred
                     src={main?.img ? main?.img?.startsWith("http") ? main?.img : `/images/${main?.img}` : ""}
                     className={"w-[270px] h-[160px]"}
+                    width={270}
+                    height={160}
                 />
                 <article
                     className={"flex flex-col h-full justify-between py-4 w-[270px] " +

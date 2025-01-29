@@ -1,5 +1,5 @@
 import {Html, Head, Main, NextScript} from 'next/document'
-import {Link} from "@nextui-org/link";
+import {Link} from "@heroui/link";
 
 export default function Document() {
     return (

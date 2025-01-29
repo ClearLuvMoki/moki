@@ -1,8 +1,17 @@
+/*
+ * @Author: moki 2893096286@qq.com
+ * @Date: 2024-11-16 18:06:14
+ * @LastEditors: moki 2893096286@qq.com
+ * @LastEditTime: 2024-12-04 19:50:16
+ * @FilePath: /moki-blog/components/markdown-components.tsx
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import 'react-photo-view/dist/react-photo-view.css';
 import React from 'react';
-import {Image} from "@nextui-org/react"
+import {Image} from "@heroui/react"
 import {PhotoProvider, PhotoView} from 'react-photo-view';
 import CodeRender from "@/components/code-render";
+
 
 const MarkdownComponents = {
     h1: (props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>) => (

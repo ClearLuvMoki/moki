@@ -1,5 +1,5 @@
 import { getCachePpsition, saveCachePpsition } from '@/utils/tools';
-import { Skeleton } from '@nextui-org/react';
+import { Skeleton } from '@heroui/react';
 import { MapPin } from 'lucide-react';
 import React, { useEffect, useState } from 'react'
 

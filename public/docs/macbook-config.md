@@ -26,20 +26,7 @@ excerpt: Macbook的简单配置
 ### 默认安装图形化软件
 
 ```shell
-brew install --cask \
-	google-chrome \
-	qq \
-	wechat \
-	neteasemusic \
-    qqmusic \
-    tencent-meeting \
-    dingtalk \
-    feishu \
-    intellij-idea \
-    visual-studio-code \
-    typora \
-	picgo \
-	apifox \
+brew install --cask google-chrome qq  wechat  neteasemusic  qqmusic  tencent-meeting  dingtalk  feishu  intellij-idea  visual-studio-code  typora  picgo  apifox 
 ```
 
 > 如果不知道`brew`是否可以安装想要的软件，可以使用`brew search <app-name>`查找;

@@ -9,10 +9,10 @@ import {
     NavbarBrand,
     NavbarItem,
     NavbarMenuItem
-} from "@nextui-org/react";
+} from "@heroui/react";
 import {useRouter} from "next/router";
 import {Command} from 'cmdk'
-import {link as linkStyles} from "@nextui-org/theme";
+import {link as linkStyles} from "@heroui/theme";
 import {siteConfig} from "@/config/site";
 import NextLink from "next/link";
 import clsx from "clsx";

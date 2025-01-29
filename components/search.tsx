@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Kbd} from "@nextui-org/react";
+import {Button, Kbd} from "@heroui/react";
 import {SearchIcon} from "@/components/icons";
 
 interface Props {

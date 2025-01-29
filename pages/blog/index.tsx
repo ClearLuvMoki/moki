@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {CryptoSearchKey, RenderTransformMarkdown} from "@/utils/tools";
 import {GetServerSideProps} from "next";
 import {useSetState} from "react-use";
-import {Card, CardBody} from "@nextui-org/react";
+import {Card, CardBody} from "@heroui/react";
 import reading from "reading-time";
 import {Typewriter} from "react-simple-typewriter";
 import {BarChartBig, CalendarDays, ClipboardEdit, Hourglass} from "lucide-react";

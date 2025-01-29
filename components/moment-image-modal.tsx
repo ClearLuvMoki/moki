@@ -1,5 +1,5 @@
 import { ExifType } from '@/types';
-import { Modal, ModalBody, ModalContent, Image, Divider } from '@nextui-org/react'
+import { Modal, ModalBody, ModalContent, Image, Divider } from '@heroui/react'
 import React from 'react'
 import Position from './position';
 import { transformExifKey } from '@/utils/tools';
