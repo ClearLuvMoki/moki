@@ -21,7 +21,6 @@ const BlogCard = ({path, content}: Props) => {
             RenderTransformMarkdown(content)
                 .then((res) => {
                     if (res?.frontMatter) {
-                        console.log(res.frontMatter, ';;;')
                         setMain(res?.frontMatter)
                     }
                 })

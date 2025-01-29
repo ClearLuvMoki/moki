@@ -7,6 +7,7 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
 export interface FrontMatterType {
   title: string;
   author: string;
+  date: string;
   excerpt: string; // 简介
   img: string; // 封面
   updateDate: string; // 更新日期
