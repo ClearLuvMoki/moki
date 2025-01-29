@@ -1,8 +1,8 @@
 import CryptoJS from "crypto-js"
 import matter from 'gray-matter';
 import dayjs from "dayjs";
-import { MarkdownType } from "@/types";
-import { LucideIcon, LucideProps, SunDim } from "lucide-react";
+import {MarkdownType} from "@/types";
+import {LucideIcon, LucideProps, SunDim} from "lucide-react";
 
 
 export class CryptoSearchKey {
@@ -29,6 +29,7 @@ export const RenderTransformMarkdown = (content: string): Promise<MarkdownType |
             const res = matter(content);
             resolve({
                 frontMatter: {
+                    date: res?.data?.date || "",
                     title: res.data?.title || "",
                     img: res.data?.img || "",
                     author: res.data?.author || "",
