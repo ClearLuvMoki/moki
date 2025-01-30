@@ -2,7 +2,7 @@
 title: Hexo部署至云服务器
 createDate: 2020-02-23 23:24
 updateDate: 2020-02-23 23:24
-img: hexo.jpg
+img: https://moki-blog.oss-cn-chengdu.aliyuncs.com/moki-note/hexo.png
 excerpt: Hexo 部署至云服务的最简实践
 ---
 

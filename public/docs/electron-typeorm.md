@@ -3,7 +3,7 @@ title: Electron+Typeorm+Sqlite3实践
 createDate: 2024-05-29
 updateDate: 2024-05-29
 author: 徐牧之啊
-img: electron-typeorm.jpg
+img: https://moki-blog.oss-cn-chengdu.aliyuncs.com/moki-note/electron-typeorm.png
 excerpt: Typeorm + Sqlite3 实践
 ---
 

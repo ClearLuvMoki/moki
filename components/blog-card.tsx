@@ -44,15 +44,23 @@ const BlogCard = ({path, content}: Props) => {
         >
             <CardBody className={"flex items-center gap-1 px-8 " +
                 "md:flex-row md:gap-8 "}>
-                <Image
-                    isZoomed
-                    alt="HeroUI hero Image"
-                    isBlurred
-                    src={main?.img ? main?.img?.startsWith("http") ? main?.img : `/images/${main?.img}` : ""}
-                    className={"w-[270px] h-[160px]"}
-                    width={270}
-                    height={160}
-                />
+                {
+                    main?.img? (
+                        <img
+                            src={main?.img}
+                            className={`w-[270px] h-[160px] object-cover rounded-xl`}
+                        />
+                    ):(
+                        <Image
+                            isZoomed
+                            isBlurred
+                            isLoading
+                            className={"w-[270px] h-[160px]"}
+                            width={270}
+                            height={160}
+                        />
+                    )
+                }
                 <article
                     className={"flex flex-col h-full justify-between py-4 w-[270px] " +
                         "md:flex-1"

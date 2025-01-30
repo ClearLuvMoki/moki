@@ -3,7 +3,7 @@ title: Swift基础
 createDate: 2023-7-18
 updateDate: 2023-7-18
 author: 徐牧之啊
-img: git.jpg
+img: https://moki-blog.oss-cn-chengdu.aliyuncs.com/moki-note/git.png
 excerpt: Swift语言的基础
 ---
 

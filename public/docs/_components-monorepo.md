@@ -3,7 +3,7 @@ title: Components monorepo简单实践
 createDate: 2024-11-04
 updateDate: 2024-11-04
 author: 徐牧之啊
-img: electron-typeorm.jpg
+img: https://moki-blog.oss-cn-chengdu.aliyuncs.com/moki-note/electron-typeorm.png
 ---
 
 # Components monorepo简单实践

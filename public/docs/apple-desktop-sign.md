@@ -3,7 +3,7 @@ title: Electron 上架 Mac store
 createDate: 2024-04-21
 updateDate: 2024-04-21
 author: 徐牧之啊
-img: electron-mac.jpg
+img: https://moki-blog.oss-cn-chengdu.aliyuncs.com/moki-note/electron-mac.png
 excerpt: Electron上架Mac Store全流程
 ---
 # Electron 上架 Mac store

@@ -3,7 +3,7 @@ title: MacBook Config
 createDate: 2020-12-27
 updateDate: 2024-11-20
 author: 徐牧之啊
-img: macbook.jpg
+img: https://moki-blog.oss-cn-chengdu.aliyuncs.com/moki-note/macbook.png
 excerpt: Macbook的简单配置
 ---
 

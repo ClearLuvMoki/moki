@@ -3,7 +3,7 @@ title: Simple git hook
 createDate: 2021-5-15
 updateDate: 2021-5-15
 author: 徐牧之啊
-img: git.jpg
+img: https://moki-blog.oss-cn-chengdu.aliyuncs.com/moki-note/git.png
 excerpt: Git 提交的简单规范化
 ---
 
