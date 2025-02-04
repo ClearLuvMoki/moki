@@ -116,7 +116,7 @@ print(text); // "name"
 
 // 如果转义字符过多可以使用 #"..."# 包围字符串
 var text_1 = #""name & age""#
-print(text_1); // "name & ag"
+print(text_1); // "name & age"
 ```
 
 ### 字符串相加
