@@ -28,11 +28,10 @@ const BlogCard = ({path, content}: Props) => {
     }, [content])
 
     const handleClick = () => {
-        const cipherPath = CryptoSearchKey.enCode(path);
         router.push({
             pathname: "/blog",
             query: {
-                path: cipherPath
+                file: path?.split("/")?.[path?.split("/")?.length - 1]?.replace(".md", "")
             }
         })
     }
@@ -45,12 +44,12 @@ const BlogCard = ({path, content}: Props) => {
             <CardBody className={"flex items-center gap-1 px-8 " +
                 "md:flex-row md:gap-8 "}>
                 {
-                    main?.img? (
+                    main?.img ? (
                         <img
                             src={main?.img}
                             className={`w-[270px] h-[160px] object-cover rounded-xl`}
                         />
-                    ):(
+                    ) : (
                         <Image
                             isZoomed
                             isBlurred

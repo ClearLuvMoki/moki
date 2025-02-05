@@ -1,7 +1,7 @@
 import React from 'react';
 import {Prism as SyntaxHighlighter} from "react-syntax-highlighter"
 import {tomorrow, oneLight} from "react-syntax-highlighter/dist/cjs/styles/prism"
-import clx from "classnames";
+import clx from "clsx";
 import {useTheme} from "next-themes";
 
 interface Props {

@@ -10,6 +10,7 @@ import DefaultLayout from "@/layouts/default";
 import {MarkdownType} from "@/types";
 import MarkdownRender from "@/components/markdown-render";
 import TableContents from "@/components/table-contents";
+import path from "path";
 
 interface Props {
     navList: {
@@ -111,9 +112,11 @@ export default function Blog({navList, content}: Props) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const fs = require("fs");
+    const path = require("path");
     const toc = require('markdown-toc');
-    const path = CryptoSearchKey.deCode(context.query.path as string);
-    const content = fs.readFileSync(path, "utf-8");
+    const basePath = path.resolve("./public/docs");
+    const filePath = basePath + "/" + context.query.file + ".md"
+    const content = fs.readFileSync(filePath, "utf-8");
     const navList = (toc(content).json || []).map((item: any) => {
         return {
             level: item.lvl,
