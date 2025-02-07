@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Card, CardBody, Image} from "@heroui/react";
 import {CalendarDays, History} from "lucide-react";
 import {useRouter} from "next/router";
-import {CryptoSearchKey, RenderTransformMarkdown} from "@/utils/tools";
+import {RenderTransformMarkdown} from "@/utils/tools";
 import {FrontMatterType} from "@/types";
 
 

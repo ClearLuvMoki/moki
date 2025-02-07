@@ -180,11 +180,10 @@ export const Navbar = ({files}: Props) => {
                                 <Command.Item
                                     key={index}
                                     onSelect={() => {
-                                        const cipherPath = CryptoSearchKey.enCode(item.path);
                                         router.push({
                                             pathname: "/blog",
                                             query: {
-                                                path: cipherPath
+                                                file: item.path?.split("/")?.[item.path?.split("/")?.length - 1]?.replace(".md", "")
                                             }
                                         })
                                     }}

@@ -9,9 +9,13 @@ export const siteConfig = {
             href: "/",
         },
         // {
-        //     label: "Moment",
-        //     href: "/moment"
-        // }
+        //     label: "Code Case",
+        //     href: "/code-case",
+        // },
+        {
+            label: "Moment",
+            href: "/moment"
+        }
     ],
     navMenuItems: [
     ],

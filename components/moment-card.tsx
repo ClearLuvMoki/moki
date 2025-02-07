@@ -1,12 +1,13 @@
-import { convertToBase64, RenderTransformMarkdown } from '@/utils/tools';
-import { Card, CardBody, cn, image, Image, Skeleton } from '@heroui/react'
-import React, { useEffect, useState } from 'react'
+import {convertToBase64, RenderTransformMarkdown} from '@/utils/tools';
+import {Card, CardBody, cn, image, Image, Skeleton} from '@heroui/react'
+import React, {useEffect, useState} from 'react'
 import EXIF from "exif-js";
-import { ExifType, MarkdownType } from '@/types';
-import { useSetState } from 'react-use';
+import {ExifType, MarkdownType} from '@/types';
+import {useSetState} from 'react-use';
 import MarkdownRender from './markdown-render';
 import Position from './position';
 import MomentImageModal from './moment-image-modal';
+import clsx from "clsx"
 
 interface Props {
     id: string;
@@ -86,7 +87,7 @@ const onExif = (blob: Blob): Promise<ExifType> => {
 }
 
 
-const MomentCard = ({ id, images, content }: Props) => {
+const MomentCard = ({id, images, content}: Props) => {
     const [url, setUrl] = useState<{
         base64: string;
         exifInfo: ExifType
@@ -155,7 +156,7 @@ const MomentCard = ({ id, images, content }: Props) => {
                     <div className='flex flex-col py-2'>
                         {
                             loading && (
-                                <Skeleton />
+                                <Skeleton/>
                             )
                         }
                         <div className='mb-4'>
@@ -179,12 +180,12 @@ const MomentCard = ({ id, images, content }: Props) => {
                                             isZoomed
                                             isBlurred
                                             src={item?.base64}
-                                            // classNames={{
-                                            //     img: {
-                                            //         "w-[300px]": url && url.length === 1,
-                                            //         "h-[200px]": url && url.length >= 2
-                                            //     },
-                                            // }}
+                                            classNames={{
+                                                img: clsx({
+                                                    "w-[400px] h-[280px]": url?.length === 1,
+                                                    "h-[200px] w-[300px]": url?.length >= 2
+                                                })
+                                            }}
                                             onClick={() => {
                                                 setModalState({
                                                     open: true,
@@ -197,7 +198,8 @@ const MomentCard = ({ id, images, content }: Props) => {
                             }
                         </div>
                         {url && url.length > 0 && url.some(item => item.exifInfo.date) && (
-                            <div className='mt-4 dark:text-zinc-500'>{url.find(item => item.exifInfo.date)?.exifInfo.date}</div>
+                            <div
+                                className='mt-4 dark:text-zinc-500'>{url.find(item => item.exifInfo.date)?.exifInfo.date}</div>
                         )}
                         {
                             url && url.length > 0 && url.some(item => item.exifInfo.latitude && item.exifInfo.longitude) && (

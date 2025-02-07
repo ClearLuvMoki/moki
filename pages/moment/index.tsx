@@ -3,10 +3,9 @@ import { Typewriter } from 'react-simple-typewriter'
 import { Button } from "@heroui/react"
 import DefaultLayout from '@/layouts/default'
 import { useRouter } from "next/router";
-import { ArrowRight } from 'lucide-react';
 
-
-const Years = [2019, 2020, 2021, 2022, 2023]
+// const Years = [2019, 2020, 2021, 2022, 2023]
+const Years = [2019, 2020]
 
 const Moment = () => {
     const router = useRouter();

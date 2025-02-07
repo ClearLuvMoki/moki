@@ -21,7 +21,7 @@ const MomentImageModal = ({ open, item, cacheId, onClose }: Props) => {
     <Modal
       isOpen={open}
       onClose={onClose}
-      size='md'
+      size='4xl'
       hideCloseButton={true}
     >
       <ModalContent>
