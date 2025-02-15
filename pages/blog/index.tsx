@@ -62,7 +62,7 @@ export default function Blog({navList, content}: Props) {
                                size={16}
                            />
                            <span>
-                               {state?.frontMatter?.date || "2000-01-01"}
+                               {state?.frontMatter?.updateDate || "2000-01-01"}
                            </span>
                        </span>
                 </div>

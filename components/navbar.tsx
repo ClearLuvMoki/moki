@@ -101,7 +101,7 @@ export const Navbar = ({files}: Props) => {
                         <p className="font-bold text-inherit">Moki</p>
                     </NextLink>
                 </NavbarBrand>
-                <div className="hidden lg:flex gap-4 justify-start ml-2">
+                <div className="flex lg:flex gap-4 justify-start ml-2">
                     {siteConfig.navItems.map((item) => (
                         <NavbarItem key={item.href}>
                             <NextLink
@@ -142,7 +142,6 @@ export const Navbar = ({files}: Props) => {
                     <GithubIcon className="text-default-500"/>
                 </Link>
                 <ThemeSwitch/>
-                {noSearch && (<NavbarMenuToggle/>)}
             </NavbarContent>
 
             {

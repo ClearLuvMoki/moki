@@ -30,7 +30,7 @@ const MomentImageModal = ({open, item, cacheId, position, onClose}: Props) => {
                     <ModalBody className='py-8'>
                         <div className='w-full flex flex-col justify-center md:flex-col items-center '>
                             <Image
-                                className='w-full h-auto m-auto max-h-[700px]'
+                                className='w-full h-auto m-auto max-h-[400px] md:max-h-[700px]'
                                 src={item?.base64}
                                 alt=""
                                 isBlurred={true}

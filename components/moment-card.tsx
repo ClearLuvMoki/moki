@@ -183,8 +183,8 @@ const MomentCard = ({id, content}: Props) => {
                                             src={item?.base64}
                                             classNames={{
                                                 img: clsx({
-                                                    "w-[400px] h-[280px]": url?.length === 1,
-                                                    "h-[200px] w-[300px]": url?.length >= 2
+                                                    "w-[300px] h-[120px] md:w-[400px] md:h-[280px]": url?.length === 1,
+                                                    "w-[300px] h-[120px] md:h-[200px] md:w-[300px]": url?.length >= 2
                                                 })
                                             }}
                                             onClick={() => {
