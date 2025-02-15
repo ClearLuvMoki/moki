@@ -10,6 +10,7 @@ export interface FrontMatterType {
   excerpt: string; // 简介
   img: string; // 封面
   moment?: string[]; // 图片列表
+  date: string;
   updateDate: string; // 更新日期
   createDate: string; // 创建日期
   position?: string;
