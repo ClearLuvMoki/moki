@@ -10,8 +10,10 @@ export interface FrontMatterType {
   date: string;
   excerpt: string; // 简介
   img: string; // 封面
+  moment?: string[]; // 图片列表
   updateDate: string; // 更新日期
   createDate: string; // 创建日期
+  position?: string;
 }
 
 export interface MarkdownType {

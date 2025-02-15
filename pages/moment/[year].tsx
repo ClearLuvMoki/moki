@@ -39,7 +39,6 @@ export default function MomentList({ list }: Props) {
               key={item.id}
               id={item.id}
               content={item.content}
-              images={item.images}
             />
           })
         }
@@ -52,8 +51,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query } = context;
   const fs = require("fs");
   const year = query?.year;
-  const { resolve, extname, parse } = require("path");
-  const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp'];
+  const { resolve, parse } = require("path");
   const dirPath = resolve("./public/moments/" + year)
 
   let list: any[] = [];
@@ -67,17 +65,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       // moment 的正文
       const docPath = resolve(childDirPath + "/" + "index.md");
       const content = fs.readFileSync(docPath, "utf-8");
-      // moment 的 images
-      const images = files.filter((file: any) => {
-        const ext = extname(file).toLowerCase();
-        return imageExtensions.includes(ext);
-      }).map((file: any) => `/moments/${year}/${childDirName}/${file}`) || []
+
       list.push({
         id: `moki-moment-${year}-${childDirName}`,
         month: indexArr[0] || -1,
         day: indexArr[1] || -1,
         content,
-        images
       })
 
     }

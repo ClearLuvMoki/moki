@@ -12,7 +12,6 @@ import clsx from "clsx"
 interface Props {
     id: string;
     content: string;
-    images: string[];
 }
 
 
@@ -87,12 +86,13 @@ const onExif = (blob: Blob): Promise<ExifType> => {
 }
 
 
-const MomentCard = ({id, images, content}: Props) => {
+const MomentCard = ({id, content}: Props) => {
     const [url, setUrl] = useState<{
         base64: string;
         exifInfo: ExifType
     }[]>([])
     const [loading, setLoading] = useState(true);
+    const [images, setImages] = useState<string[]>([]);
     const [state, setState] = useSetState<MarkdownType>({
         frontMatter: null,
         content: ""
@@ -112,6 +112,7 @@ const MomentCard = ({id, images, content}: Props) => {
         if (content) {
             RenderTransformMarkdown(content)
                 .then((res) => {
+                    setImages(res?.frontMatter?.moment || [])
                     setState({
                         frontMatter: res?.frontMatter,
                         content: res?.content || ""
@@ -202,9 +203,10 @@ const MomentCard = ({id, images, content}: Props) => {
                                 className='mt-4 dark:text-zinc-500'>{url.find(item => item.exifInfo.date)?.exifInfo.date}</div>
                         )}
                         {
-                            url && url.length > 0 && url.some(item => item.exifInfo.latitude && item.exifInfo.longitude) && (
+                            ((url && url.length > 0 && url.some(item => item.exifInfo.latitude && item.exifInfo.longitude)) || state?.frontMatter?.position) && (
                                 <Position
                                     cacheId={id}
+                                    position={state?.frontMatter?.position}
                                     latitude={url.find(item => item.exifInfo.date)?.exifInfo.latitude as number}
                                     longitude={url.find(item => item.exifInfo.date)?.exifInfo.longitude as number}
                                 />
@@ -216,6 +218,7 @@ const MomentCard = ({id, images, content}: Props) => {
             <MomentImageModal
                 open={modalState.open}
                 item={modalState.item}
+                position={state?.frontMatter?.position}
                 cacheId={id}
                 onClose={() => {
                     setModalState({
