@@ -798,8 +798,196 @@ print(name); // ["jack"]
 var a: [String] = ["jack"];
 var b: [String] = ["moki"];
 print(a + b); // ["jack", "moki"]
-
 ```
 
+### 数组修改元素
 
+通过下标单个元素修改:
+
+```swift
+var name = ["moki", "jack"];
+name[0] = "moki-1"
+print(name); // ["moki-1", "jack"]
+```
+
+使用下标的range的修改：
+
+```swift
+var shoppingList= [1,2,3,4,5,6,7,8];
+shoppingList[4...6] = [9,9,9];
+print(shoppingList); // [1, 2, 3, 4, 9, 9, 9, 8]
+```
+
+### 数组的插入
+
+使用 insert 在指定下标插入,该方法不返回新的修改后的数组，也不会烦新的数组:
+
+```swift
+var shoppingList = [1,2,3,4,5,6,7,8];
+shoppingList.insert(9, at: 0)
+print(shoppingList); // [9,1,2,3,4,5,6,7,8];
+```
+
+### 数组删除单独的元素
+
+使用`remove`关键词, 返回删除的元素:
+
+```swift
+ // 使用 remove 删除指定下标的元素
+var shoppingList = [1,2,3,4,5,6,7,8];
+let mapleSyrup = shoppingList.remove(at: 0)
+print(mapleSyrup); // 1
+```
+
+使用`removeLast`删除最后一项, 返回删除的元素:
+
+```swift
+var shoppingList = [1,2,3,4,5,6,7,8];
+let apples = shoppingList.removeLast();
+print(apples);  // 8
+```
+
+### 遍历数组
+
+```swift
+var shoppingList = [1,2,3,4,5,6,7,8];
+for item in shoppingList {
+  print(item); 
+}
+```
+
+如果需要遍历数组并且获取下标，请使用`enumerated`：
+
+```swift
+var shoppingList = [1,2,3,4,5,6,7,8];
+for (index, item) in shoppingList.enumerated() {
+  print(index, item); 
+}
+```
+
+## Set
+
+**集合** 将相同类型的不同值存储在没有定义序列化的集合中。当项的顺序不重要，或者需要确保项只出现一次时，可以使用集合而不是数组。
+
+一个类型必须是 **可哈希的** 才能存储在集合中—也就是说，该类型必须提供一种为自身计算 **哈希值** 的方法
+
+Swift 的所有基本类型（如 `String`、`Int`、`Double` 和 `Bool`）默认都是可哈希的，可以用作集合的值类型或字典的键类型。
+
+### 初始化空的Set
+
+```swift
+var letters = Set<Character>()
+print("letters is of type Set<Character> with \(letters.count) items.")
+```
+
+使用数组字面量创建:
+
+```swift
+var favoriteGenres: Set<String> = ["Rock", "Classical", "Hip hop"]
+// favoriteGenres 已经用三个初始元素进行了初始化
+
+// 可以把 Set<String> 简写成 Set, 自动推断出是 String
+var favoriteGenres: Set = ["Rock", "Classical", "Hip hop"]
+```
+
+### Set是否为空
+
+```swift
+var favoriteGenres: Set<String> = ["Rock", "Classical", "Hip hop"]
+// 可以通过 count 是否为 0 判断是否为空，也可以使用 isEmpty 返回的布尔值是否知道为空
+print("I have \(favoriteGenres.count) favorite music genres.")
+print(favoriteGenres.isEmpty); // false
+```
+
+### Set插入
+
+使用`insert`插入元素
+
+```swift
+favoriteGenres.insert("Jazz")
+```
+
+### Set删除元素
+
+使用`remove`删除元素，返回被删除的元素:
+
+```swift
+var item = favoriteGenres.remove("Rock")
+```
+
+可以使用`removeAll`删除所有元素
+```swift
+favoriteGenres.removeAll()
+```
+
+### Set是否包含元素
+
+使用`contains`关键词检查Set是否包含某一个元素,返回一个布尔值:
+
+```swift
+var favoriteGenres: Set<String> = ["Rock", "Classical", "Hip hop"]
+print(favoriteGenres.contains("Rock"))
+```
+
+### Set排序
+
+该方法返回集合的元素作为一个数组，并按 `<` 运算符排序。
+
+```swift
+print(favoriteGenres.sorted());
+```
+
+### 遍历 Set
+
+```swift
+for genre in favoriteGenres {
+    print("\(genre)")
+}
+// Classical
+// Jazz
+// Hip hop
+```
+
+### 集合操作
+
+- 使用 `intersection(_:)` 方法创建一个只包含两个集合共有值的新集合。
+- 使用 `symmetricDifference(_:)` 方法创建一个包含两个集合中存在但不同时存在的值的新集合。
+- 使用 `union(_:)` 方法创建一个包含两个集合中所有值的新集合。
+- 使用 `subtracting(_:)` 方法创建一个不包含指定集合中值的新集合。
+
+```swift
+let oddDigits: Set = [1, 3, 5, 7, 9]
+let evenDigits: Set = [0, 2, 4, 6, 8]
+let singleDigitPrimeNumbers: Set = [2, 3, 5, 7]
+
+
+oddDigits.union(evenDigits).sorted()
+// [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+oddDigits.intersection(evenDigits).sorted()
+// []
+oddDigits.subtracting(singleDigitPrimeNumbers).sorted()
+// [1, 9]
+oddDigits.symmetricDifference(singleDigitPrimeNumbers).sorted()
+// [1, 2, 9]
+```
+
+- 使用 “等于” 运算符 （`==`）判断两个集合是否包含相同的所有值。
+- 使用 `isSubset(of:)` 方法判断一个集合的所有值是否包含在指定集合中。
+- 使用 `isSuperset(of:)` 方法判断一个集合是否包含指定集合中的所有值。
+- 使用 `isStrictSubset(of:)` 或 `isStrictSuperset(of:)` 方法判断一个集合是否是指定集合的子集或超集（但不相等）。
+- 使用 `isDisjoint(with:)` 方法判断两个集合是否没有共同的值。
+
+```swift
+let houseAnimals: Set = ["🐶", "🐱"]
+let farmAnimals: Set = ["🐮", "🐔", "🐑", "🐶", "🐱"]
+let cityAnimals: Set = ["🐦", "🐭"]
+
+
+houseAnimals.isSubset(of: farmAnimals)
+// true
+farmAnimals.isSuperset(of: houseAnimals)
+// true
+farmAnimals.isDisjoint(with: cityAnimals)
+// true
+```
 
