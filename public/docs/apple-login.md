@@ -3,7 +3,7 @@ title: Apple login
 createDate: 2025-03-10
 updateDate: 2025-03-10
 author: 徐牧之啊
-img: 
+img: [https://moki-blog.oss-cn-chengdu.aliyuncs.com/moki-note/sign-in-with-apple-1.webp]
 excerpt: Apple login
 ---
 
