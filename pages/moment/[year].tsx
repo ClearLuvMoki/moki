@@ -4,6 +4,8 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react'
 import { Typewriter } from 'react-simple-typewriter';
+import fs from "fs";
+import {parse} from "path";
 
 
 interface Props {
@@ -58,21 +60,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const childDir = fs.readdirSync(dirPath);
   for (let i in childDir) {
     let childDirPath = resolve(dirPath + '/' + childDir[i]);
-    if (fs.statSync(childDirPath).isDirectory()) {
-      const files = fs.readdirSync(childDirPath);
+    console.log(childDirPath, 'childDirPath')
+    if(childDirPath?.endsWith(".md")) {
       const childDirName = parse(childDirPath)?.name;
+      const content = fs.readFileSync(childDirPath, "utf-8");
       const indexArr = childDirName.split("-").map((item: string) => Number(item))
-      // moment 的正文
-      const docPath = resolve(childDirPath + "/" + "index.md");
-      const content = fs.readFileSync(docPath, "utf-8");
-
       list.push({
         id: `moki-moment-${year}-${childDirName}`,
         month: indexArr[0] || -1,
         day: indexArr[1] || -1,
         content,
       })
-
     }
   }
   list = (list || []).sort((prev, next) => {

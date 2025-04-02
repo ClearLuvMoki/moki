@@ -19,7 +19,7 @@ export default function IndexPage({files}: Props) {
                 <div className="inline-block max-w-lg text-center justify-center">
                     <h1 className={"tracking-tight inline font-semibold text-[2.3rem] lg:text-5xl leading-9"}>Moki</h1>
                     <br/>
-                    <h4 className={"w-full md:w-1/2 my-2 text-lg lg:text-xl text-default-600 block max-w-full !w-full mt-4"}>
+                    <h4 className={"w-full md:w-1/2 my-2 text-lg lg:text-xl text-default-600 block max-w-full !w-full my-10"}>
                         不如去西湖吹吹风吧
                     </h4>
                 </div>

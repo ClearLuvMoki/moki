@@ -4,7 +4,7 @@ createDate: 2025-03-10
 updateDate: 2025-03-10
 author: 徐牧之啊
 img: [https://moki-blog.oss-cn-chengdu.aliyuncs.com/moki-note/sign-in-with-apple-1.webp]
-excerpt: Apple login
+excerpt: 使用 JS 在 WebPage 实现 Apple Login 
 ---
 
 # Apple Login for JavaScript 
