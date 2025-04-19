@@ -112,10 +112,11 @@ const MomentCard = ({id, content}: Props) => {
         if (content) {
             RenderTransformMarkdown(content)
                 .then((res) => {
+                    console.log(res?.frontMatter, '1212')
                     setImages(res?.frontMatter?.moment || [])
                     setState({
                         frontMatter: res?.frontMatter,
-                        content: res?.content || ""
+                        content: res?.content || "",
                     })
                 })
         }
@@ -198,9 +199,9 @@ const MomentCard = ({id, content}: Props) => {
                                 })
                             }
                         </div>
-                        {url && url.length > 0 && url.some(item => item.exifInfo.date) && (
+                        {((url && url.length > 0 && url.some(item => item.exifInfo.date)) || state?.frontMatter?.date) && (
                             <div
-                                className='mt-4 dark:text-zinc-500'>{url.find(item => item.exifInfo.date)?.exifInfo.date}</div>
+                                className='mt-4 dark:text-zinc-500'>{state?.frontMatter?.date || url.find(item => item.exifInfo.date)?.exifInfo.date}</div>
                         )}
                         {
                             ((url && url.length > 0 && url.some(item => item.exifInfo.latitude && item.exifInfo.longitude)) || state?.frontMatter?.position) && (
