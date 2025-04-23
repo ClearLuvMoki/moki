@@ -25,7 +25,7 @@ const BlogCard = ({path, content}: Props) => {
                     }
                 })
         }
-    }, [content])
+    }, [content, setMain])
 
     const handleClick = () => {
         router.push({

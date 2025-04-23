@@ -34,7 +34,7 @@ export default function Blog({navList, content}: Props) {
                     content: res?.content || ""
                 })
             })
-    }, [content])
+    }, [content, setState])
 
     return (
         <DefaultLayout>
