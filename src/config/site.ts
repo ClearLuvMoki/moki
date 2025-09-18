@@ -17,21 +17,21 @@ export const siteConfig: SiteConfig = {
     avatar: ""
   },
   nav: [
-    {
-      title: "Snippets",
-      href: "/snippets",
-      description:
-        "Code snippets that I use often. Mostly for personal reference.",
-    },
-    {
-      title: "Notes",
-      href: "/notes",
-      description: "My notes on various topics. Mostly for personal reference.",
-    },
-    {
-      title: "Photos",
-      href: "/photos",
-      description: "My photos from various events and places.",
-    },
+    // {
+    //   title: "Snippets",
+    //   href: "/snippets",
+    //   description:
+    //     "Code snippets that I use often. Mostly for personal reference.",
+    // },
+    // {
+    //   title: "Notes",
+    //   href: "/notes",
+    //   description: "My notes on various topics. Mostly for personal reference.",
+    // },
+    // {
+    //   title: "Photos",
+    //   href: "/photos",
+    //   description: "My photos from various events and places.",
+    // },
   ],
 };
