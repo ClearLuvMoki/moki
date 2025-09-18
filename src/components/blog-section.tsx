@@ -16,7 +16,7 @@ const BlogSection = () => {
 
     return (
         <div>
-            <SectionHeading>Recent Posts</SectionHeading>
+            <SectionHeading>Recent Blogs</SectionHeading>
             {blogs?.length ? (
                 <div className="grid gap-10 sm:grid-cols-2">
                     {blogs.map((blog, index) => (
@@ -35,7 +35,7 @@ const BlogSection = () => {
                         "rounded-xl"
                     )}
                 >
-                    See all articles
+                    See all blogs
                 </Link>
             </div>
         </div>

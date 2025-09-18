@@ -25,6 +25,7 @@ import { cn } from "@/lib/utils";
 
 import { Icons } from "../icons";
 import MobileNav from "./mobile-nav";
+import { ModeToggle } from "../theme-toggle";
 
 interface MainNavbarProps {
     children?: ReactNode;
@@ -84,7 +85,7 @@ const MainNavbar = ({ children }: MainNavbarProps) => {
                 <div className="flex-1 sm:grow-0">
                     {/* <SearchCommand /> */}
                 </div>
-                {/* <ModeToggle /> */}
+                <ModeToggle />
             </div>
 
             <button

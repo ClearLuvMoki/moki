@@ -78,7 +78,6 @@ export const metadata: Metadata = {
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
-  manifest: `${siteConfig.url}/site.webmanifest`,
 };
 
 export default function RootLayout({
@@ -105,7 +104,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="pointer-events-none fixed inset-0 z-[99] h-full w-full overflow-hidden bg-[url(/noise.png)] opacity-40 dark:opacity-60" />
           <div className="flex min-h-screen flex-col">
             <header className="sticky top-0 z-40 w-full border-b bg-background/90 backdrop-blur-md">
               <div className="container lg:max-w-4xl xl:max-w-6xl m-auto">

@@ -13,9 +13,9 @@ import FolderTree from "@/components/folder-tree"
 import GridContainer from "@/components/grid-container"
 import ImageZoom from "@/components/image-zoom"
 import LoadingSkeleton from "@/components/loading-skeleton"
-// import CodeBlockHeader from "@/components/mdx/code-block-header"
 import CodeBlock from "@/components/mdx/codeblock"
 import Youtube from "@/components/mdx/youtube"
+import CodeBlockHeader from "@/components/mdx/code-block-header"
 
 export const components = {
     h1: ({ className, ...props }: HTMLAttributes<HTMLHeadingElement>) => (
@@ -142,7 +142,7 @@ export const components = {
         />
     ),
     pre: CodeBlock,
-    // figcaption: CodeBlockHeader,
+    figcaption: CodeBlockHeader,
     Steps: ({ ...props }) => (
         <div
             className="[&>h3]:step steps mb-12 ml-4 border-l pl-8 [counter-reset:step]"

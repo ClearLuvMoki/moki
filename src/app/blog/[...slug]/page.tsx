@@ -2,14 +2,9 @@ import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { allBlogs } from "content-collections"
-
 import { absoluteUrl, formatDate } from "@/lib/utils"
 import Mdx from "@/components/mdx/mdx-components"
-
-import "@/styles/mdx.css"
-
 import { Metadata } from "next"
-
 import BreadcrumbNavigation from "@/components/layout/breadcrumb-navigation"
 // import PostMetrics from "@/components/post-metrics"
 // import PostComment from "@/components/posts/post-comment"
@@ -18,7 +13,7 @@ import TableOfContents from "@/components/toc"
 
 const BASE_URL = absoluteUrl("/")
 
-interface PostPageProps {
+interface BlogPageProps {
     params: {
         slug: string[]
     }
@@ -26,7 +21,7 @@ interface PostPageProps {
 
 export async function generateMetadata({
     params,
-}: PostPageProps): Promise<Metadata> {
+}: BlogPageProps): Promise<Metadata> {
     const post = await getPostFromParams(params)
 
     if (!post) {
@@ -80,7 +75,7 @@ async function getPostFromParams(params: { slug: string[] }) {
     return blog
 }
 
-const PostPage = async ({ params }: PostPageProps) => {
+const BlogPage = async ({ params }: BlogPageProps) => {
     const post = await getPostFromParams(params)
 
     if (!post) {
@@ -171,4 +166,4 @@ const PostPage = async ({ params }: PostPageProps) => {
     )
 }
 
-export default PostPage
+export default BlogPage

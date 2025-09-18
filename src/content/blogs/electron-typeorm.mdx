@@ -84,6 +84,7 @@ app.on('ready', async () => {
 ```
 3. 新建表实体
 在`dataBase`中新建文件夹`entities`用来存储业务对应的表，一下是新建一个配置表`config.ts`:
+
 ```javascript
 import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn} from "typeorm";
 
@@ -109,6 +110,7 @@ export class ConfigEntities {
     createDate?: Date | undefined;
 }
 ```
+
 4. 在第一步的`dataBase`文件中修改`entities`字段注入实体:
 ```javascript
 import {ConfigEntities} from "./entities/config.ts";
