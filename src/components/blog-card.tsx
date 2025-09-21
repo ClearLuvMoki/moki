@@ -3,8 +3,8 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Blog } from "content-collections"
-import { EyeIcon, ThumbsUpIcon } from "lucide-react"
-
+import { EyeIcon } from "lucide-react"
+import { api } from "@/trpc/react"
 import { formatDate } from "@/lib/utils"
 
 interface BlogCardProps {
@@ -13,6 +13,9 @@ interface BlogCardProps {
 }
 
 const BlogCard = ({ blog, index }: BlogCardProps) => {
+    const viewQuery = api.view.get.useQuery({
+        slug: blog.slug,
+    })
 
     return (
         <article className="group relative flex flex-col space-y-2 rounded-2xl border bg-background p-3">
@@ -43,11 +46,14 @@ const BlogCard = ({ blog, index }: BlogCardProps) => {
                     <div className="flex items-center gap-4">
                         <div className="flex items-center gap-1">
                             <EyeIcon className="size-4" />
+                            <span>
+                                {viewQuery.isLoading ? "--" : viewQuery.data?.views} views
+                            </span>
                         </div>
 
-                        <div className="flex items-center gap-1">
+                        {/* <div className="flex items-center gap-1">
                             <ThumbsUpIcon className="size-4" />
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

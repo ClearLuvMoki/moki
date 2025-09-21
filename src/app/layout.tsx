@@ -10,6 +10,7 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
+import {TRPCReactProvider} from "@/trpc/react";
 
 // import { ScrollToTopButton } from "@/components/scroll-to-top-button"
 // import { TailwindIndicator } from "@/components/tailwind-indicator"
@@ -98,30 +99,32 @@ export default function RootLayout({
         )}
       >
         {/* <SessionProvider> */}
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="flex min-h-screen flex-col">
-            <header className="sticky top-0 z-40 w-full border-b bg-background/90 backdrop-blur-md">
-              <div className="container lg:max-w-4xl xl:max-w-6xl m-auto">
-                <div className="flex h-20 items-center justify-between px-6 space-x-8 py-6">
-                  <Logo />
-                  <MainNavbar />
+        <TRPCReactProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <div className="flex min-h-screen flex-col">
+              <header className="sticky top-0 z-40 w-full border-b bg-background/90 backdrop-blur-md">
+                <div className="container lg:max-w-4xl xl:max-w-6xl m-auto">
+                  <div className="flex h-20 items-center justify-between px-6 space-x-8 py-6">
+                    <Logo />
+                    <MainNavbar />
+                  </div>
                 </div>
-              </div>
-            </header>
-            <main className="container flex-1 py-6 md:py-10 lg:max-w-4xl xl:max-w-6xl m-auto px-6">
-              {children}
-            </main>
-            <Footer />
-          </div>
-          <Toaster position="bottom-right" className="!font-sans" />
-          {/* <ScrollToTopButton /> */}
-          {/* <TailwindIndicator /> */}
-        </ThemeProvider>
+              </header>
+              <main className="container flex-1 py-6 md:py-10 lg:max-w-4xl xl:max-w-6xl m-auto px-6">
+                {children}
+              </main>
+              <Footer />
+            </div>
+            <Toaster position="bottom-right" className="!font-sans" />
+            {/* <ScrollToTopButton /> */}
+            {/* <TailwindIndicator /> */}
+          </ThemeProvider>
+        </TRPCReactProvider>
         {/* </SessionProvider> */}
 
         {isProduction && (

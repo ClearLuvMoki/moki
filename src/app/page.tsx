@@ -1,6 +1,5 @@
 import BlogSection from "@/components/blog-section";
 import Intro from "@/components/intro";
-import Image from "next/image";
 
 export default function Home() {
   return (

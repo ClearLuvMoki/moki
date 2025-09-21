@@ -3,6 +3,8 @@ import { withContentCollections } from "@content-collections/next";
 
 
 const nextConfig: NextConfig = {
+    reactStrictMode: false,
+    swcMinify: true,
     images: {
         remotePatterns: [
         {

@@ -10,6 +10,7 @@ import BreadcrumbNavigation from "@/components/layout/breadcrumb-navigation"
 // import PostComment from "@/components/posts/post-comment"
 // import SocialShare from "@/components/social-share"
 import TableOfContents from "@/components/toc"
+import { api } from "@/trpc/server"
 
 const BASE_URL = absoluteUrl("/")
 
@@ -68,6 +69,14 @@ async function getPostFromParams(params: { slug: string[] }) {
     const slug = params?.slug?.join("/")
     const blog = allBlogs.find((post) => post.slug === slug)
 
+    if (slug && process.env.NODE_ENV !== "development") {
+        try {
+            await api.view.increment({ slug })
+        } catch (err) {
+            console.log("Error incrementing view count", err)
+        }
+    }
+
     if (!blog) {
         return null
     }
@@ -101,9 +110,9 @@ const BlogPage = async ({ params }: BlogPageProps) => {
                         {/* <PostMetrics post={post} /> */}
                     </div>
 
-                    <div className="mt-4 flex space-x-4">
+                    {/* <div className="mt-4 flex space-x-4">
                         {author}
-                    </div>
+                    </div> */}
 
                     {img && (
                         <Image

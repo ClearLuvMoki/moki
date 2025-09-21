@@ -9,7 +9,7 @@ import {
     type ReactNode,
     useState,
 } from "react";
-// import SearchCommand from "@/components/command-menu";
+import SearchCommand from "@/components/command-menu";
 // import { ModeToggle } from "@/components/theme-toggle";
 import {
     NavigationMenu,
@@ -83,7 +83,7 @@ const MainNavbar = ({ children }: MainNavbarProps) => {
 
             <div className="hidden items-center gap-4 lg:flex">
                 <div className="flex-1 sm:grow-0">
-                    {/* <SearchCommand /> */}
+                     <SearchCommand />
                 </div>
                 <ModeToggle />
             </div>
