@@ -69,13 +69,13 @@ async function getPostFromParams(params: { slug: string[] }) {
     const slug = params?.slug?.join("/")
     const blog = allBlogs.find((post) => post.slug === slug)
 
-    if (slug && process.env.NODE_ENV !== "development") {
-        try {
-            await api.view.increment({ slug })
-        } catch (err) {
-            console.log("Error incrementing view count", err)
-        }
-    }
+    // if (slug && process.env.NODE_ENV !== "development") {
+    //     try {
+    //         await api.view.increment({ slug })
+    //     } catch (err) {
+    //         console.log("Error incrementing view count", err)
+    //     }
+    // }
 
     if (!blog) {
         return null

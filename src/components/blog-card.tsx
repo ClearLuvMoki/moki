@@ -13,9 +13,9 @@ interface BlogCardProps {
 }
 
 const BlogCard = ({ blog, index }: BlogCardProps) => {
-    const viewQuery = api.view.get.useQuery({
-        slug: blog.slug,
-    })
+    // const viewQuery = api.view.get.useQuery({
+    //     slug: blog.slug,
+    // })
 
     return (
         <article className="group relative flex flex-col space-y-2 rounded-2xl border bg-background p-3">
@@ -44,12 +44,12 @@ const BlogCard = ({ blog, index }: BlogCardProps) => {
                     {blog.createDate && <span>{formatDate(blog.createDate)}</span>}
 
                     <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-1">
+                        {/* <div className="flex items-center gap-1">
                             <EyeIcon className="size-4" />
                             <span>
                                 {viewQuery.isLoading ? "--" : viewQuery.data?.views} views
                             </span>
-                        </div>
+                        </div> */}
 
                         {/* <div className="flex items-center gap-1">
                             <ThumbsUpIcon className="size-4" />
