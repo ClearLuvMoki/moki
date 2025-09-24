@@ -5,6 +5,7 @@ import { compareDesc } from "@/lib/utils"
 import PageHeading from "@/components/page-heading"
 import FilteredBlog from "@/components/blog/filtered-blog"
 
+export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
     title: "Blog",
 }

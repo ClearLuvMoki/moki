@@ -1,6 +1,8 @@
 import BlogSection from "@/components/blog-section";
 import Intro from "@/components/intro";
 
+export const dynamic = "force-dynamic";
+
 export default function Home() {
   return (
     <section>
