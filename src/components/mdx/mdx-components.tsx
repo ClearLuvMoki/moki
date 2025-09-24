@@ -16,6 +16,7 @@ import LoadingSkeleton from "@/components/loading-skeleton"
 import CodeBlock from "@/components/mdx/codeblock"
 import Youtube from "@/components/mdx/youtube"
 import CodeBlockHeader from "@/components/mdx/code-block-header"
+import InlineCode from "./inline-code"
 
 export const components = {
     h1: ({ className, ...props }: HTMLAttributes<HTMLHeadingElement>) => (
@@ -141,6 +142,7 @@ export const components = {
             {...props}
         />
     ),
+    code: InlineCode,
     pre: CodeBlock,
     figcaption: CodeBlockHeader,
     Steps: ({ ...props }) => (
