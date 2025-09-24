@@ -3,6 +3,11 @@ import { withContentCollections } from "@content-collections/next";
 
 
 const nextConfig: NextConfig = {
+    experimental: {
+        staleTimes: {
+            dynamic: 0
+        }
+    },
     reactStrictMode: false,
     swcMinify: true,
     images: {
