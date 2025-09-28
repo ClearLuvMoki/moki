@@ -16,6 +16,9 @@ const nextConfig: NextConfig = {
             },
         ]
     },
+    // experimental: {
+    //     dynamicIO: true
+    // },
     reactStrictMode: false,
     swcMinify: true,
     images: {
