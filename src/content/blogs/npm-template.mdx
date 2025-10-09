@@ -1,13 +1,13 @@
 ---
-title: Npx template
+title: Npm template
 createDate: 2024-09-20
 updateDate: 2024-09-20
 author: 徐牧之
 img: https://moki-blog.oss-cn-chengdu.aliyuncs.com/moki-note/node_email.png
-excerpt: 配置Npx脚手架模板
+excerpt: 配置Npm脚手架模板
 ---
 
-# 配置`npx`脚手架模板
+# 配置`npm`脚手架模板
 > 我们在创建项目比如 `rsbuild` 的 `pnpm create rsbuild@latest`可以通过交互式的方式创建好项目, 如果我们需要自定义自己的模板，比如需要创建一个自己熟悉的 `electron + react + rsbuild` 的项目或者是其他加入自己元素的项目，可以尝试自定义一个模板
 
 ## 项目结构
@@ -123,6 +123,15 @@ main()
   process.exit(1);
 });
 ```
+
+## 上传
+> 上传到npm仓库，需要先注册一个npm账号，然后登录npm账号，需要检查地址是否是`https://registry.npmjs.org/`
+```shell
+npm login
+```
+除此之外，还需要检查项目的`package.json`是否包含了必要的字段，比如`name`，`version`，`description`，`author`，`license`等，以及版本号不能重叠或者小于之前的，与发布`npm package`规则一样
+
+
 ## 示例
 [electorn-rsbuild-template](https://www.npmjs.com/package/electron-rsbuild-template)
 
