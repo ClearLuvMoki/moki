@@ -15,10 +15,10 @@ const Intro = () => {
                 initial={{ opacity: 0, y: 100 }}
                 animate={{ opacity: 1, y: 0 }}
             >
-                <span className="font-bold leading-[1.5] sm:text-xl lg:text-3xl">
+                <span className="font-bold leading-[1.5] sm:text-2xl lg:text-3xl">
                     {siteConfig?.author?.name}
                 </span>
-                <span className="lg:text-xl sm:text-md font-semibold text-muted-foreground">
+                <span className="text-md font-semibold text-muted-foreground">
                     Moonquakes
                 </span>
             </motion.div>
