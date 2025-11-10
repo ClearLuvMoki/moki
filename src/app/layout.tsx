@@ -11,6 +11,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import {TRPCReactProvider} from "@/trpc/react";
+import { ViewTransitions } from 'next-view-transitions'
 
 // import { ScrollToTopButton } from "@/components/scroll-to-top-button"
 // import { TailwindIndicator } from "@/components/tailwind-indicator"
@@ -89,6 +90,7 @@ export default function RootLayout({
   const isProduction = process.env.NODE_ENV === "production";
 
   return (
+      <ViewTransitions>
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <body
         className={cn(
@@ -132,5 +134,6 @@ export default function RootLayout({
         )}
       </body>
     </html>
+      </ViewTransitions>
   );
 }

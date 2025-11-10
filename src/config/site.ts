@@ -29,9 +29,9 @@ export const siteConfig: SiteConfig = {
     //   description: "My notes on various topics. Mostly for personal reference.",
     // },
     // {
-    //   title: "Photos",
-    //   href: "/photos",
-    //   description: "My photos from various events and places.",
+    //   title: "Moment",
+    //   href: "/moment",
+    //   description: "Some moments",
     // },
   ],
 };
