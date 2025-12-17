@@ -1,11 +1,11 @@
-import { MomentCard } from "@/components/moment-card";
+// import { MomentCard } from "@/components/moment-card";
 
 const YearPage = () => {
     return <div className="">
-        <MomentCard
+        {/* <MomentCard
             src="12"
             width={200}
-        />
+        /> */}
     </div>
 }
 
