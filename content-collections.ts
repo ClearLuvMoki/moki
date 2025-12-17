@@ -68,6 +68,16 @@ const blogs = defineCollection({
   transform,
 })
 
+const moments = defineCollection({
+  name: "moment",
+  directory: "src/content/moments",
+  include: "**/*.mdx",
+  schema: (z) => ({
+    content: z.string(),
+    images: z.array(z.string())
+  })
+})
+
 export default defineConfig({
-  collections: [blogs],
+  collections: [blogs, moments],
 })
