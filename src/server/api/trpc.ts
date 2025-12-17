@@ -1,5 +1,5 @@
 // import { auth } from "../../../auth"
-import { db } from "@/server/db"
+// import { db } from "@/server/db"
 import { initTRPC, TRPCError } from "@trpc/server"
 import superjson from "superjson"
 import { ZodError } from "zod"
@@ -8,7 +8,7 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
     // const session = await auth()
 
     return {
-        db,
+        // db,
         // session,
         ...opts,
     }
