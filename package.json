@@ -1,9 +1,8 @@
 {
-  "name": "astro-theme-retypeset",
+  "name": "moki-blogs",
   "type": "module",
   "version": "1.0.0",
   "packageManager": "pnpm@10.26.0",
-  "repository": "https://github.com/radishzzz/astro-theme-retypeset",
   "scripts": {
     "dev": "astro check && astro dev",
     "build": "astro check && astro build && pnpm apply-lqip",
