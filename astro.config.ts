@@ -105,12 +105,10 @@ export default defineConfig({
     server: {
       allowedHosts: true,
       host: true,
-      port: 3001,
     },
     preview: {
       allowedHosts: true,
       host: true,
-      port: 3001,
     },
   },
   devToolbar: {
