@@ -103,9 +103,8 @@ export default defineConfig({
       },
     ],
     preview: {
-      allowedHosts: [
-        'moonquakes.online',
-      ],
+      allowedHosts: true,
+      host: true,
     },
   },
   devToolbar: {
