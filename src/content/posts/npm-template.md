@@ -1,0 +1,136 @@
+---
+title: NPM Template
+published: 2025-09-20
+updated: 2025-09-20
+abbrlink: npm-template
+---
+
+# 配置 NPM 脚手架模板
+> 我们在创建项目比如 `rsbuild` 的 `pnpm create rsbuild@latest`可以通过交互式的方式创建好项目, 如果我们需要自定义自己的模板，比如需要创建一个自己熟悉的 `electron + react + rsbuild` 的项目或者是其他加入自己元素的项目，可以尝试自定义一个模板
+
+## 项目结构
+```shell
+├── index.js  # 模板的入口文件
+├── package.json # 模板的依赖
+├── README.md # 模板的说明
+└── template # 模板的目录文件夹，里面包括模板的所有文件
+```
+## 入口文件
+```javascript
+#!/usr/bin/env node
+import { execSync } from 'node:child_process'
+import fs, { promises as fsp } from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+import inquirer from 'inquirer' // 用于交互式的命令行输入
+import ora from 'ora' // 用于显示加载中的动画
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
+// 执行命令并显示加载中的动画
+async function runCommandWithSpinner(command, message) {
+  const spinner = ora(message)
+  spinner.start()
+
+  try {
+    execSync(command, { stdio: 'pipe' })
+    spinner.succeed('Dependencies installed successfully!')
+  }
+  catch (error) {
+    spinner.fail('Failed to install dependencies')
+    throw error
+  }
+}
+
+// 创建项目文件，复制模板文件到目标目录
+async function createProjectFiles(targetDir, templateDir) {
+  const spinner = ora('Creating project files...').start()
+
+  try {
+    await fsp.mkdir(targetDir)
+    await fsp.cp(templateDir, targetDir, { recursive: true })
+    spinner.succeed('Project files created successfully!')
+  }
+  catch (err) {
+    spinner.fail('Failed to create project files!')
+    throw err
+  }
+}
+
+async function main() {
+  const answers = await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'projectName',
+      message: 'Please input project name:',
+      default: 'electron-app'
+    },
+    {
+      type: 'list',
+      name: 'packageManager',
+      message: 'Please select package manager:',
+      choices: ['pnpm', 'yarn', 'npm'],
+      default: 'pnpm'
+    }
+  ])
+
+  const projectName = answers.projectName.trim()
+  const targetDir = path.resolve(process.cwd(), projectName)
+
+  if (fs.existsSync(targetDir)) {
+    console.error(`❌ Project ${projectName} already exists!`)
+    process.exit(1)
+  }
+
+  const templateDir = path.join(__dirname, 'template')
+  await createProjectFiles(targetDir, templateDir)
+
+  // 检查是否安装了指定的包管理器
+  try {
+    execSync(`${answers.packageManager} --version`, { stdio: 'ignore' })
+  }
+  catch (err) {
+    console.error(`❌ Command not found: ${answers.packageManager}`)
+    console.error(`👉 Please install ${answers.packageManager} first.`)
+    process.exit(1)
+  }
+
+  try {
+    process.chdir(targetDir)
+    await runCommandWithSpinner(
+      `${answers.packageManager} install`,
+      `Installing dependencies with ${answers.packageManager}...`
+    )
+  }
+  catch (error) {
+    console.error('Error:', error.message)
+    console.log(`👉 You can manually install dependencies later by running:`)
+    console.log(`   cd ${projectName}`)
+    console.log(`   ${answers.packageManager} install\n`)
+  }
+
+  console.log(`\n✅ Project ${projectName} created successfully!`)
+  console.log('👉 Next steps:')
+  console.log(`   cd ${projectName}`)
+  console.log(`   ${answers.packageManager} run dev\n`)
+}
+
+main()
+  .catch((err) => {
+    if (err.isTtyError || err.name === 'ExitPromptError') {
+      process.exit(0)
+    }
+    console.error(err)
+    process.exit(1)
+  })
+```
+
+## 上传
+> 上传到npm仓库，需要先注册一个npm账号，然后登录npm账号，需要检查地址是否是`https://registry.npmjs.org/`
+```shell
+npm login
+```
+除此之外，还需要检查项目的`package.json`是否包含了必要的字段，比如`name`，`version`，`description`，`author`，`license`等，以及版本号不能重叠或者小于之前的，与发布`npm package`规则一样
+
+## 示例
+[electron-rsbuild-template](https://www.npmjs.com/package/electron-rsbuild-template)
