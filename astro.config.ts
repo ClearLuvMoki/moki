@@ -103,11 +103,15 @@ export default defineConfig({
       },
     ],
     server: {
-      allowedHosts: true,
+      allowedHosts: [
+        'moonquakes.online',
+      ],
       host: true,
     },
     preview: {
-      allowedHosts: true,
+      allowedHosts: [
+        'moonquakes.online',
+      ],
       host: true,
     },
   },
