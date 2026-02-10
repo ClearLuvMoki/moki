@@ -103,16 +103,14 @@ export default defineConfig({
       },
     ],
     server: {
-      allowedHosts: [
-        'moonquakes.online',
-      ],
+      allowedHosts: true,
       host: true,
+      port: 3001,
     },
     preview: {
-      allowedHosts: [
-        'moonquakes.online',
-      ],
+      allowedHosts: true,
       host: true,
+      port: 3001,
     },
   },
   devToolbar: {
