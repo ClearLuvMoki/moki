@@ -6,9 +6,9 @@ export const themeConfig: ThemeConfig = {
     // site title
     title: 'Moki',
     // site subtitle
-    subtitle: '',
+    subtitle: 'see more be more',
     // site description
-    description: '',
+    description: 'Moki`s blogs',
     // use i18n title/subtitle/description from src/i18n/ui.ts instead of static ones above
     i18nTitle: true, // true | false
     // author name
