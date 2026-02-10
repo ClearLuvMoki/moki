@@ -89,6 +89,9 @@ export default defineConfig({
       },
     },
   },
+  server: {
+    allowedHosts: true,
+  },
   vite: {
     plugins: [
       {
@@ -102,14 +105,6 @@ export default defineConfig({
         },
       },
     ],
-    server: {
-      allowedHosts: true,
-      host: true,
-    },
-    preview: {
-      allowedHosts: true,
-      host: true,
-    },
   },
   devToolbar: {
     enabled: false,
