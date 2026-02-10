@@ -102,6 +102,10 @@ export default defineConfig({
         },
       },
     ],
+    server: {
+      allowedHosts: true,
+      host: true,
+    },
     preview: {
       allowedHosts: true,
       host: true,
