@@ -8,7 +8,7 @@
     "generate-metadata": "node scripts/generate-blog-metadata.js",
     "build": "npm run generate-config && npm run generate-metadata && prisma generate && next build --turbopack",
     "preview": "npm run build && npm run start",
-    "start": "next start",
+    "start": "next start -p 3001",
     "lint": "biome check",
     "format": "biome format --write",
     "db:generate": "prisma generate",
