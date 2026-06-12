@@ -1,0 +1,62 @@
+# ===========================================
+# Moki Blog 全局配置（参考 Hexo _config.yml）
+# 修改此文件后 dev 模式会自动重新生成 src/config/generated.ts
+# ===========================================
+
+# 站点基础信息
+title: Moki
+subtitle: Personal Blog
+description: Moon-Quakes
+author: Moki
+language: zh-CN
+timezone: Asia/Shanghai
+url: http://localhost:3020
+
+# 头像与图标
+avatar: /images/avatar.png
+favicon: /favicon.ico
+og_image: /images/og.png
+
+# 主题设置
+theme:
+  default_mode: system # light | dark | system
+
+# 国际化
+i18n:
+  default_locale: zh
+  locales:
+    - zh
+    - en
+
+# 数据库（连接字符串通过环境变量 DATABASE_URL 配置）
+database:
+  provider: sqlite
+
+# 评论系统
+comments:
+  enabled: true
+  provider: builtin # builtin | giscus | utterances
+  giscus:
+    repo: ""
+    repo_id: ""
+    category: ""
+    category_id: ""
+    mapping: pathname
+    reactions_enabled: true
+
+# 导航菜单
+menu:
+  Home: /
+  Blog: /blog
+
+# 社交链接
+social:
+  github: https://github.com/ClearLuvMoki
+  twitter: ""
+  email: clearluvmoki@gmail.com
+
+# 分析统计（可选）
+analytics:
+  umami:
+    enabled: false
+    website_id: ""

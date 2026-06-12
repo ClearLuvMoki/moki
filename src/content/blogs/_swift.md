@@ -1,0 +1,1525 @@
+---
+title: Swift基础
+createDate: 2023-7-18
+updateDate: 2023-7-18
+author: 徐牧之啊
+img: https://moki-blog.oss-cn-chengdu.aliyuncs.com/moki-note/git.png
+excerpt: Swift语言的基础
+---
+
+# Swift语言基础
+
+## 变量和常量
+
+### 变量
+
+变量关键词是`var`:
+
+```swift
+// 同时声明多个变量,使用逗号分隔
+var a = 1, b = 2, c = 3;
+print(a, b, c);
+```
+
+```swift
+// 变量可修改成相同类型
+var name = "moki";
+name = "clearluv";
+
+print(name); // clearluv
+
+// 不可修改成不同的类型
+var age = 25;
+age = "26"; // ❌ 编译器会报错
+```
+
+### 常量
+
+常量关键词是`let`声明后不可修改
+
+```swift
+let name = "moki";
+name = "clearluv"; // ❌不可修改
+```
+
+### 常量和变量的声明使用
+
+```swift
+// 在变量和常量的声明可以不用赋值，但是使用会报错；
+let name: String;
+var age: Int;
+
+// 如果是变量加上可选（请看下面章节`可选`）并且未赋值，那么name则是nil；常量（let）则不行；
+var name: String?;
+print(name);
+```
+
+```swift
+// 在变量和常量的声明需要避免关键词，但是如果必须使用关键词可以使用 `` 包裹
+let `let`: String = "1212";
+```
+
+### 类型注解
+
+本例为名为 `welcomeMessage` 的变量提供了一个类型注解，以指示该变量可以存储字符串值：
+
+```swift
+var welcomeMessage: String
+```
+
+或者可以直接赋值会自动推导类型:
+
+```swift
+var age = 25; // 会自动推导成Int
+var pi = 3.142; // 小数会自动推导成 Double
+```
+
+### 类型别名
+
+*类型别名*用于定义现有类型的替代名称。你可以使用 `typealias` 关键字定义类型别名：
+
+```swift
+typealias AutoInt = UInt8;
+
+var max = AutoInt.max;
+```
+
+## print的使用
+
+### 打印变量/常量
+
+```swift
+let name = "moki";
+print("my name is \(name)"); // 使用反斜杠
+```
+
+### 打印多个参数
+
+```swift
+// 打印多个参数
+var a = 1, b = 2, c = 3;
+print(a, b, c);
+```
+
+### 使用特定的分隔符
+
+```swift
+var a = 1, b = 2, c = 3;
+print(a, b, c, s: "_"); // 1_2_3
+```
+
+### 设置结尾的格式
+
+```swift
+var a = 1, b = 2, c = 3;
+print(a, b, c, separator: "_", terminator: "\t"); 
+print("===>")
+// 最后输出 // 1_2_3 ===>
+// 在第一个 print 输入设置结束以制表符结尾，所有不会换行
+```
+
+# 字符串
+
+## 字符串的声明
+
+```swift
+var name_1 = "moki";
+var name_2 = "";
+var name_3 = String(); // 同上声明了空字符串
+var name_4 = String("moki");
+var name_5 = String(repeating: "a", count: 10); // 声明了重复了10遍a的字符串
+```
+
+## 初始化空字符
+
+```swift
+var emptyString = ""               // 空字符串字面量
+var anotherEmptyString = String()  // 初始化方法
+// 两个字符串均为空并等价。
+```
+
+
+
+## 换行字符串
+
+使用`###`包围前后：
+
+```swift
+var text_1 = """
+原神
+启动!
+"""
+print(text_1);
+/*
+原神
+启动!
+*/
+
+// 或者可以设置不用换行，在每一行的末尾加上 \，最后一行不用
+var text_2 = """
+原神\
+启动!
+"""
+print(text_2);
+// 输出： 原神启动!
+```
+
+## 转义字符
+
+使用反斜杠`\`或者`#"..."#`处理转义字符:
+
+```swift
+var text = "\"name \"";
+print(text); // "name"
+
+
+// 如果转义字符过多可以使用 #"..."# 包围字符串
+var text_1 = #""name & age""#
+print(text_1); // "name & age"
+```
+
+## 字符串相加
+
+```swift
+var name = "moki"
+var age = "26";
+print(name + age); // moki26 
+```
+
+
+## 字符串插值
+
+```swift
+let multiplier = 3
+let message = "\(multiplier) times 2.5 is \(Double(multiplier) * 2.5)"
+// message is "3 times 2.5 is 7.5"s
+
+// 如果使用扩展字符串分隔符的插值(#""" ... """#)，需要按照如下写法
+print(#"6 times 7 is \#(6 * 7)."#) // 使用 \#(...)
+// 打印 "6 times 7 is 42."
+```
+
+## 字符串下标访问
+
+> /注意 在`.index`方法中 不能把 before/after 和 offset同时使用
+
+```swift
+let greeting = "Guten Tag!"
+greeting[greeting.startIndex]
+// G
+greeting[greeting.index(before: greeting.endIndex)]
+// !
+greeting[greeting.index(after: greeting.startIndex)]
+// u
+
+let index = greeting.index(greeting.startIndex, offsetBy: 7)
+greeting[index]
+// a
+```
+
+使用 `indices` 属性会创建一个包含全部索引的范围（`Range`），用来在一个字符串中访问单个字符。
+
+```swift
+for index in greeting.indices {
+    print("\(greeting[index]) ", terminator: "")
+}
+// 打印 "G u t e n   T a g ! "
+```
+
+
+
+## 字符串判断是否为空
+
+通过检查字符串值的布尔型 `isEmpty` 属性，来确定该字符串值是否为空。
+
+```swift
+if emptyString.isEmpty {
+    print("Nothing to see here")
+}
+// 打印输出 "Nothing to see here"
+```
+
+## 字符个数
+
+如果想要获得一个字符串中 `Character` 值的数量，可以使用 `count` 属性（包括空格和标点等）：
+
+```swift
+let unusualMenagerie = "Koala 🐨, Snail 🐌, Penguin 🐧, Dromedary 🐪"
+print("unusualMenagerie has \(unusualMenagerie.count) characters")
+// 打印 "unusualMenagerie has 40 characters"
+```
+
+## 字符串插入
+
+调用 `insert(_:at:)` 方法可以在一个字符串的指定索引插入一个字符，调用 `insert(contentsOf:at:)` 方法可以在一个字符串的指定索引插入一段字符串，`insert`不会返回插入后的字符串;
+
+```swift
+var welcome = "hello"
+welcome.insert("!", at: welcome.endIndex)
+// welcome 变量现在等于 "hello!"
+```
+
+指定下标插入字符:
+
+```swift
+var str: String = "name"
+
+var insertIndex = name.index(name.startIndex, offsetBy: 2)
+str.insert("1", at:insertIndex)
+print(str); // na1me
+```
+
+
+
+## 字符串删除
+
+调用 `remove(at:)` 方法可以在一个字符串的指定索引删除一个字符，调用 `removeSubrange(_:)` 方法可以在一个字符串的指定索引删除一个子字符串。
+
+```swift
+var welcome = "hello";
+welcome.remove(at: welcome.index(before: welcome.endIndex))
+// welcome 现在等于 "hello there"
+```
+
+或者可以删除一个range内的字符串
+
+```swift
+var welcome = "hello";
+let range = welcome.index(welcome.endIndex, offsetBy: -6)..<welcome.endIndex
+welcome.removeSubrange(range)
+// welcome 现在等于 "hello"
+```
+
+# 字符
+
+如果您想要获取某个字符串里的每一个字符值，可以采用 `for`-`in` 循环的方式对该字符串进行遍历操作，从而逐个访问到其中的每一个字符。
+
+```swift
+for character in "Dog!🐶" {
+    print(character)
+}
+// D
+// o
+// g
+// !
+// 🐶
+
+
+// 声明字符
+let exclamationMark: Character = "!"
+```
+
+## 字符串/字符比较相等
+
+字符串/字符可以用等于操作符（`==`）和不等于操作符（`!=`）
+
+```swift
+let quotation = "We're a lot alike, you and I."
+let sameQuotation = "We're a lot alike, you and I."
+if quotation == sameQuotation {
+    print("These two strings are considered equal")
+}
+// 打印 "These two strings are considered equal"
+```
+
+## 特定前缀或后缀
+
+通过调用字符串的 `hasPrefix(*:)`或`hasSuffix(*:)` 方法来检查字符串是否拥有特定前缀或后缀，两个方法均接收一个 `String` 类型的参数，并返回一个布尔值。
+
+```swift
+let romeoAndJuliet = [
+    "Act 1 Scene 1: Verona, A public place",
+    "Act 1 Scene 2: Capulet's mansion",
+    "Act 1 Scene 3: A room in Capulet's mansion",
+    "Act 1 Scene 4: A street outside Capulet's mansion",
+    "Act 1 Scene 5: The Great Hall in Capulet's mansion",
+    "Act 2 Scene 1: Outside Capulet's mansion",
+    "Act 2 Scene 2: Capulet's orchard",
+    "Act 2 Scene 3: Outside Friar Lawrence's cell",
+    "Act 2 Scene 4: A street in Verona",
+    "Act 2 Scene 5: Capulet's mansion",
+    "Act 2 Scene 6: Friar Lawrence's cell"
+]
+var act1SceneCount = 0
+for scene in romeoAndJuliet {
+    if scene.hasPrefix("Act 1 ") {
+        act1SceneCount += 1
+    }
+}
+print("There are \(act1SceneCount) scenes in Act 1")
+// 打印 "There are 5 scenes in Act 1"
+```
+
+# 数字类型
+
+## 整数
+
+*整数*是没有小数成分的数字，如 `42` 和 `-23`。 整数可以是*有符号的*（正数、零或负数），也可以是*无符号的*（正数或零）。
+
+Swift 提供 8、16、32 和 64 位有符号和无符号整数。
+
+### 整数边界
+
+- 在 32 位平台上，`Int` 的大小与 `Int32` 相同， `UInt` 的大小与 `UInt32` 相同。
+- 在 64 位平台上，`Int` 的大小与 `Int64` 相同，`UInt` 的大小与 `UInt64` 相同。
+
+```swift
+let minValue = UInt8.min  // minValue 等于 0，类型为 UInt8
+let maxValue = UInt8.max  // maxValue 等于 255，类型为 UInt8
+```
+
+## 浮点数
+
+*浮点数*是带有小数成分的数字，如 `3.14159`、`0.1` 和 `-273.15`。
+
+与整数类型相比，浮点类型可以表示的数值范围更广，而且可以存储比 `Int` 类型大得多或小得多的数字。Swift 提供了两种带符号浮点数类型：
+
+- `Double` 表示 64 位浮点数。
+- `Float` 表示 32 位浮点数。
+
+> `Double` 的精度至少为小数点后 15 位，而 `Float` 的精度可以至小数点后 6 位。
+
+```swift
+// 推断浮点数类型时，Swift 总是选择 Double（而非 Float）
+let key = 3 + 0.14159; // key 也被推断为 Double 类型
+
+let pi = 3.14159; // pi 推断为 Double 类型
+```
+
+### 数字类型转换
+
+```swift
+// 要将一种特定的数字类型转换为另一种，需要用现有值初始化一个所需类型的新数字。
+let twoThousand: UInt16 = 2_000
+let one: UInt8 = 1
+let twoThousandAndOne = twoThousand + UInt16(one)
+```
+
+整数和浮点数的转换：
+
+```swift
+let three = 3
+let pointOneFourOneFiveNine = 0.14159
+let pi = Double(three) + pointOneFourOneFiveNine
+// pi 等于 3.14159，并被推断为 Double 类型
+```
+
+# 布尔类型
+
+Swift 有一种基本的*布尔*类型，称为 `Bool`。布尔值又被称为*逻辑值*，因为它们只能为真或假。Swift 提供了两个布尔常量值：`true` 和 `false`。
+
+```swift
+// orangesAreOrange 和 turnipsAreDelicious 的类型已被推断为 Bool
+let orangesAreOrange = true
+let turnipsAreDelicious = false
+```
+
+# 元组
+
+*元组*将多个值组合成一个复合值。元组内的值可以是任何类型，*且不必彼此属于同一类型*。
+
+```swift
+let http404Error = (404, "Not Found")
+// http404Error 的类型为（Int，String），且等于（404，"Not Found"）
+
+// 结构访问元组:
+let (statusCode, statusMessage) = http404Error
+print("The status code is \(statusCode)")
+
+// 或者，使用从零开始的索引号访问元组中的单个元素值：
+print("The status code is \(http404Error.0)") // 打印 "The status code is 404"
+print("The status message is \(http404Error.1)") // 打印 "The status message is Not Found"
+```
+
+如果只需要元组的部分值，则在分解元组时使用下划线 (`_`) 忽略不需要的部分：
+
+```swift
+let (justTheStatusCode, _) = http404Error
+print("The status code is \(justTheStatusCode)");
+```
+
+为元组中每个元素命名:
+
+```swift
+let http200Status = (statusCode: 200, description: "OK")
+print("The status code is \(http200Status.statusCode)")
+// 打印 "The status code is 200"
+print("The status message is \(http200Status.description)")
+// 打印 "The status message is OK"
+
+// 除此之外可以结构访问或者下标访问
+var (code, des) = http200Status;
+print(code, http200Status.1);
+```
+
+# 可选
+
+在可能缺失值的情况下，请使用*可选*。可选代表两种可能性：要么*存在*一个指定类型的值，并可以解包可选以访问该值；要么*根本就没有*值。
+
+```swift
+var serverResponseCode: Int? = 404 // Optional Int
+// serverResponseCode 包含一个实际 Int 值 404
+serverResponseCode = nil;
+print(serverResponseCode); // nil
+```
+
+# 可选绑定
+
+你可以使用可选绑定来确定可选是否包含值，如果包含，则将该值作为临时常量或变量使用。
+
+```swift
+// 语法
+if let <#constantName#> = <#someOptional#> {
+   <#statements#>
+}
+```
+
+示例:
+
+```swift
+// 以下代码可以解释成： 如果 possibleNumber 能转换成Int，那么就不为 nil，则可以直接匹配到该if的分支中
+// 在 = 的右边必须是 Optional 的类型，Int() 转换也是 Optional<Int> 的类型
+// 打印 "The string "123" has an integer value of 123"
+var possibleNumber = "1212";
+if let actualNumber = Int(possibleNumber) {
+    print("The string \"\(possibleNumber)\" has an integer value of \(actualNumber)")
+} else {
+    print("The string \"\(possibleNumber)\" couldn't be converted to an integer")
+}
+```
+
+# 后备值
+
+处理缺失值的另一种方法是使用 nil-coalescing 操作符（`??`）提供一个缺省值。如果 `??` 左边的可选值不是 `nil`，那么该值将被解包并使用。
+
+```swift
+let name: String? = nil
+let greeting = "Hello, " + (name ?? "friend") + "!"
+print(greeting)
+// 打印 "Hello, friend!"
+```
+
+# 错误处理
+
+```swift
+// 在函数使用关键字 throws ,那么此函数可能抛出错误，也可能不抛错
+func canThrowAnError() throws {
+    // TODO...
+}
+
+do {
+    try canThrowAnError()
+    // 无错误的情况
+} catch {
+    // 抛出错误的情况
+}
+```
+
+# 断言
+
+如果断言或前提条件中的布尔条件为 `true`，代码将照常执行。
+
+如果条件的计算结果为 `false`，则程序的当前状态无效;代码执行结束，应用会被终止。
+
+*注意： 断言只在调试构建中进行检查！*
+
+可以调用 Swift 标准库中的 `assert(_:_:file:line:)`函数来编写断言。你可以向该函数传递一个计算结果为 `true` 或 `false` 的表达式，以及一条在条件结果为 `false` 时显示的信息。例如：
+
+```swift
+let age = -3
+assert(age >= 0, "A person's age can't be less than zero.") // 因为前置条件是false， 则会出现断言信息;
+```
+
+如果出现了判断条件，只是需要断言的提示信息，可以使用`assertionFailure`:
+
+```swift
+let age = -3
+if(age > 0) {
+  print("You can ride the ferris wheel.")
+}else {
+  assertionFailure("A person's age can't be less than zero.")
+}
+```
+
+
+
+# 基本运算符
+
+## 术语
+
+运算符可以是一元、二元或三元：
+
+- *一元*运算符作用于单个目标（如 `-a`）。一元*前置*运算符紧跟在其目标之前（如 `!b`），一元*后置*运算符紧跟在其目标之后（如 `c!`）。
+- *二元*运算符作用于两个目标（如 `2 + 3`），是*中置*的，因为它们出现在两个目标之间。
+- *三元*运算符作用于三个目标。与 C 一样，Swift 只有一个三元运算符，即三元条件运算符（`a ? b : c`）。
+
+## 赋值运算符
+
+```swift
+let b = 10
+var a = 5
+a = b
+// a 现在等于 10
+
+let (x, y) = (1, 2) // x 等于 1, y 等于 2
+```
+
+## 算术运算符
+
+- 加法（`+`）
+- 减法（`-`）
+- 乘法（`*`）
+- 除法（`/`）
+
+```swift
+1 + 2       // 等于 3
+5 - 3       // 等于 2
+2 * 3       // 等于 6 
+10.0 / 2.5  // 等于 4.0
+
+// 支持字符串拼接
+"Hello" + "World"
+```
+
+##  余数运算符
+
+*余数运算符*（`a % b`）计算出 `b` 在 `a` 中能容纳多少个倍数，并返回剩余的值（称为*余数*）。
+
+```swift
+9 % 4    // 等于 1
+```
+
+
+
+## 一元负号运算符
+
+数值的正负号可以使用前缀 `-` 切换，称为*一元负号运算符*：
+
+```swift
+let three = 3
+let minusThree = -three       // minusThree 等于 -3
+let plusThree = -minusThree   // plusThree 等于 3，或 "负负三"
+```
+
+##  一元正号运算符
+
+*一元正号运算符*（`+`）只是返回它所作用的值，不做任何改变：
+
+```swift
+let minusSix = -6
+let alsoMinusSix = +minusSix  // alsoMinusSix 等于 -6 
+```
+
+## 复合赋值运算符
+
+与 C 语言一样，Swift 提供了*复合赋值运算符*，它将赋值（`=`）与另一个操作结合起来。 一个例子是*加法赋值运算符*（`+=`）：
+
+```swift
+var a = 1
+a += 2
+// a 现在等于 3, 表达式 a += 2 是 a = a + 2 的简写。
+```
+
+## 比较运算符
+
+Swift 支持以下比较运算符：
+
+- 等于（`a == b`）
+- 不等于（`a != b`）
+- 大于（`a > b`）
+- 小于（`a < b`）
+- 大于等于（`a >= b`）
+- 小于等于（`a <= b`）
+
+
+
+如果两个元组具有相同的类型和相同数量的值，则可以比较它们， 规则则是先比较第一个，如果第一个相等则比较第二个
+
+```swift
+(1, "zebra") < (2, "apple")   // 为 true，因为 1 小于 2; "zebra" 和 "apple" 未比较
+(3, "apple") < (3, "bird")    // 为 true，因为 3 等于 3，而 "apple" 小于 "bird"
+(4, "dog") == (4, "dog")      // 为 true，因为 4 等于 4，而 "dog" 等于 "dog"
+```
+
+## 三元条件运算符
+
+```swift
+let contentHeight = 40
+let hasHeader = true
+let rowHeight = contentHeight + (hasHeader ? 50 : 20)
+// rowHeight 等于 90
+```
+
+## 空合并运算符
+
+*空合并运算符*（`a ?? b`）如果可选项`a`包含一个值，则会解包该值，否则会返回默认值`b`（如果`a`为`nil`）。表达式`a`始终是一个可选类型。表达式`b`必须与存储在`a`中的类型相匹配。
+
+```swift
+let defaultColorName = "red"
+var userDefinedColorName: String?   // 默认为 nil
+
+
+var colorNameToUse = userDefinedColorName ?? defaultColorName
+// userDefinedColorName 为空，所以 colorNameToUse 为默认值 "red"
+```
+
+## 闭区间运算符
+
+
+
+*闭区间运算符*（`a...b`）定义了一个从 `a` 到 `b` 的范围，包括 `a` 和 `b` 的值。`a` 的值不能大于 `b`
+
+```swift
+for index in 1...5 {
+    print("\(index) 乘以 5 等于 \(index * 5)") 
+}
+// 1 乘以 5 等于 5
+// 2 乘以 5 等于 10
+// 3 乘以 5 等于 15 
+// 4 乘以 5 等于 20
+// 5 乘以 5 等于 25
+```
+
+## 半开区间运算符
+
+*半开区间运算符*（`a..<b`）定义了一个从 `a` 到 `b` 但不包括 `b` 的范围
+
+```swift
+let names = ["Anna", "Alex", "Brian", "Jack"] 
+let count = names.count
+for i in 0..<count {
+    print("第 \(i + 1) 个人叫 \(names[i])")
+}
+// 第 1 个人叫 Anna
+// 第 2 个人叫 Alex
+// 第 3 个人叫 Brian 
+// 第 4 个人叫 Jack
+```
+
+## 单侧区间
+
+闭区间运算符有一种替代形式，用于一直延伸到尽可能远的区间，是包含区间开始的值：
+
+```swift
+let names = ["Anna", "Alex", "Brian", "Jack"] 
+
+for name in names[2...] { print(name) }
+// Brian
+// Jack
+
+for name in names[...2] { print(name) }
+// Anna
+// Alex
+// Brian 
+
+for name in names[..<2] { print(name) }
+// Anna
+// Alex
+```
+
+
+
+## 逻辑运算符
+
+*逻辑运算符*修改或组合布尔逻辑值 `true` 和 `false`。 Swift 支持 C 语言中的三个标准逻辑运算符：
+
+- 逻辑非（`!a`）
+- 逻辑与（`a && b`）
+- 逻辑或（`a || b`）
+
+```swift
+// 逻辑非
+let allowedEntry = false
+if !allowedEntry {
+    print("ACCESS DENIED")
+} // 打印 "ACCESS DENIED"
+
+// 逻辑与
+let enteredDoorCode = true
+let passedRetinaScan = false
+if enteredDoorCode && passedRetinaScan {
+    print("Welcome!")
+} else {
+    print("ACCESS DENIED")
+} // 打印 "ACCESS DENIED"
+
+// 逻辑或
+let hasDoorKey = false
+let knowsOverridePassword = true
+if hasDoorKey || knowsOverridePassword {
+    print("Welcome!")
+} else {
+    print("ACCESS DENIED")
+} // 打印 "Welcome!"
+```
+
+# 集合类型
+
+> 如果您创建一个数组、集合或字典，并将其赋值给一个变量，则创建的集合将是 **可变的**。这意味着，在创建集合后，您可以通过添加、删除或更改集合中的元素来改变（或称为 **变异**）集合。如果您将数组、集合或字典分配给常量，则该集合是 **不可变的**，并且其大小和内容无法更改。
+
+## 数组
+
+**数组** 将相同类型的值存储在一个有序列表中。相同的值可以在数组中以不同位置多次出现。
+
+### 创建数组
+
+创建空数组:
+
+```swift
+var someInts: [Int] = []
+print("someInts is of type [Int] with \(someInts.count) items.")
+// 打印 “someInts is of type [Int] with 0 items.“
+```
+
+使用默认值创建重复项数组，和合并数组:
+
+```swift
+var threeDoubles = Array(repeating: 0.0, count: 3)
+// threeDoubles 的类型是 [Double]，并且等于 [0.0, 0.0, 0.0]
+
+//合并数组
+var anotherThreeDoubles = Array(repeating: 2.5, count: 3)
+// anotherThreeDoubles 的类型是 [Double]，并且等于 [2.5, 2.5, 2.5]
+
+var sixDoubles = threeDoubles + anotherThreeDoubles
+// sixDoubles 被推断为 [Double] 类型，并且等于 [0.0, 0.0, 0.0, 2.5, 2.5, 2.5]
+```
+
+数组字面量 来初始化数组：
+
+```swift
+var shoppingList: [String] = ["Eggs", "Milk"]
+// shoppingList 已经用两个初始项进行了初始化
+```
+
+###  数组是否为空
+
+```swift
+// 可以通过 count 是否为 0 判断是否为空，也可以使用 isEmpty 返回的布尔值是否知道为空
+print("The shopping list contains \(shoppingList.count) items.")
+print(shoppingList.isEmpty);
+```
+
+### 数组添加元素
+
+```swift
+// 使用append关键字添加数组元素
+var name: [String] = []
+name.append("jack");
+print(name); // ["jack"]
+
+// 或者两个数组相加
+var a: [String] = ["jack"];
+var b: [String] = ["moki"];
+print(a + b); // ["jack", "moki"]
+```
+
+### 判断是否为数组
+
+```swift
+// Any可以替换成其他的比如 Int Double
+let value: Any = [1, 2, 3]
+
+if value is [Any] {
+    print("这是一个数组")
+}
+```
+
+### 数组修改元素
+
+通过下标单个元素修改:
+
+```swift
+var name = ["moki", "jack"];
+name[0] = "moki-1"
+print(name); // ["moki-1", "jack"]
+```
+
+使用下标的range的修改：
+
+```swift
+var shoppingList= [1,2,3,4,5,6,7,8];
+shoppingList[4...6] = [9,9,9];
+print(shoppingList); // [1, 2, 3, 4, 9, 9, 9, 8]
+```
+
+### 数组的插入
+
+使用 insert 在指定下标插入,该方法不返回新的修改后的数组:
+
+```swift
+var shoppingList = [1,2,3,4,5,6,7,8];
+shoppingList.insert(9, at: 0)
+print(shoppingList); // [9,1,2,3,4,5,6,7,8];
+```
+
+### 数组删除单独的元素
+
+使用`remove`关键词, 返回删除的元素:
+
+```swift
+ // 使用 remove 删除指定下标的元素
+var shoppingList = [1,2,3,4,5,6,7,8];
+let mapleSyrup = shoppingList.remove(at: 0)
+print(mapleSyrup); // 1
+```
+
+使用`removeLast`删除最后一项, 返回删除的元素:
+
+```swift
+var shoppingList = [1,2,3,4,5,6,7,8];
+let apples = shoppingList.removeLast();
+print(apples);  // 8
+```
+
+使用`removeAll`删除所有:
+
+```swift
+var shoppingList = [1,2,3,4,5,6,7,8];
+shoppingList.removeAll();
+print(apples);  // []
+```
+
+### 数组是否包含
+
+使用`contains`检测是否包含某一个元素
+
+```swift
+var shoppingList = [1,2,3,4,5,6,7,8];
+let apples = shoppingList.removeLast();
+print(shoppingList.contains(apples));  // false
+```
+
+### 遍历数组
+
+```swift
+var shoppingList = [1,2,3,4,5,6,7,8];
+for item in shoppingList {
+  print(item); 
+}
+```
+
+如果需要遍历数组并且获取下标，请使用`enumerated`：
+
+```swift
+var shoppingList = [1,2,3,4,5,6,7,8];
+for (index, item) in shoppingList.enumerated() {
+  print(index, item); 
+}
+```
+
+## Set
+
+**集合** 将相同类型的不同值存储在没有定义序列化的集合中。当项的顺序不重要，或者需要确保项只出现一次时，可以使用集合而不是数组。
+
+一个类型必须是 **可哈希的** 才能存储在集合中—也就是说，该类型必须提供一种为自身计算 **哈希值** 的方法
+
+Swift 的所有基本类型（如 `String`、`Int`、`Double` 和 `Bool`）默认都是可哈希的，可以用作集合的值类型或字典的键类型。
+
+### 初始化空的Set
+
+```swift
+var letters = Set<Character>()
+print("letters is of type Set<Character> with \(letters.count) items.")
+```
+
+使用数组字面量创建:
+
+```swift
+var favoriteGenres: Set<String> = ["Rock", "Classical", "Hip hop"]
+// favoriteGenres 已经用三个初始元素进行了初始化
+
+// 可以把 Set<String> 简写成 Set, 自动推断出是 String
+var favoriteGenres: Set = ["Rock", "Classical", "Hip hop"]
+```
+
+### Set是否为空
+
+```swift
+var favoriteGenres: Set<String> = ["Rock", "Classical", "Hip hop"]
+// 可以通过 count 是否为 0 判断是否为空，也可以使用 isEmpty 返回的布尔值是否知道为空
+print("I have \(favoriteGenres.count) favorite music genres.")
+print(favoriteGenres.isEmpty); // false
+```
+
+### Set插入
+
+使用`insert`插入元素
+
+```swift
+favoriteGenres.insert("Jazz")
+```
+
+### Set删除元素
+
+使用`remove`删除元素，返回被删除的元素:
+
+```swift
+var item = favoriteGenres.remove("Rock")
+```
+
+可以使用`removeAll`删除所有元素
+```swift
+favoriteGenres.removeAll()
+```
+
+### Set是否包含元素
+
+使用`contains`关键词检查Set是否包含某一个元素,返回一个布尔值:
+
+```swift
+var favoriteGenres: Set<String> = ["Rock", "Classical", "Hip hop"]
+print(favoriteGenres.contains("Rock"))
+```
+
+### Set排序
+
+该方法返回集合的元素作为一个数组，并按 `<` 运算符排序。
+
+```swift
+print(favoriteGenres.sorted());
+```
+
+### 遍历 Set
+
+```swift
+for genre in favoriteGenres {
+    print("\(genre)")
+}
+// Classical
+// Jazz
+// Hip hop
+```
+
+### 集合操作
+
+- 使用 `intersection(_:)` 方法创建一个只包含两个集合共有值的新集合。
+- 使用 `symmetricDifference(_:)` 方法创建一个包含两个集合中存在但不同时存在的值的新集合。
+- 使用 `union(_:)` 方法创建一个包含两个集合中所有值的新集合。
+- 使用 `subtracting(_:)` 方法创建一个不包含指定集合中值的新集合。
+
+```swift
+let oddDigits: Set = [1, 3, 5, 7, 9]
+let evenDigits: Set = [0, 2, 4, 6, 8]
+let singleDigitPrimeNumbers: Set = [2, 3, 5, 7]
+
+
+oddDigits.union(evenDigits).sorted()
+// [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+oddDigits.intersection(evenDigits).sorted()
+// []
+oddDigits.subtracting(singleDigitPrimeNumbers).sorted()
+// [1, 9]
+oddDigits.symmetricDifference(singleDigitPrimeNumbers).sorted()
+// [1, 2, 9]
+```
+
+- 使用 “等于” 运算符 （`==`）判断两个集合是否包含相同的所有值。
+- 使用 `isSubset(of:)` 方法来判断一个集合中的所有值是否也被包含在另外一个集合中。
+- 使用 `isSuperset(of:)` 方法判断一个集合是否包含指定集合中的所有值。
+- 使用 `isStrictSubset(of:)` 或 `isStrictSuperset(of:)` 方法判断一个集合是否是指定集合的子集或超集（但不相等）。
+- 使用 `isDisjoint(with:)` 方法判断两个集合是否没有共同的值。
+
+```swift
+let houseAnimals: Set = ["🐶", "🐱"]
+let farmAnimals: Set = ["🐮", "🐔", "🐑", "🐶", "🐱"]
+let cityAnimals: Set = ["🐦", "🐭"]
+
+
+houseAnimals.isSubset(of: farmAnimals)
+// true
+farmAnimals.isSuperset(of: houseAnimals)
+// true
+farmAnimals.isDisjoint(with: cityAnimals)
+// true
+```
+
+## Dictionary
+
+### 初始化
+
+```swift
+var namesOfIntegers: [Int: String] = [:]
+// namesOfIntegers 是一个空的 [Int: String] 字典
+
+// 创建例子
+var airports: [String: String] = ["YYZ": "Toronto Pearson", "DUB": "Dublin"]
+```
+
+### 获取元素个数
+
+```swift
+var airports: [String: String] = ["YYZ": "Toronto Pearson", "DUB": "Dublin"]
+print("The dictionary of airports contains \(airports.count) items.")
+// 打印“The dictionary of airports contains 2 items.”（这个字典有两个数据项）
+```
+
+### 是否为空
+
+```swift
+if airports.isEmpty {
+    print("The airports dictionary is empty.")
+} else {
+    print("The airports dictionary is not empty.")
+}
+```
+
+### 新增元素
+
+可以通过下标语法来给字典添加新的数据项
+
+```swift
+airports["LHR"] = "London"
+```
+
+也可以使用下标语法来改变特定键对应的值：
+
+```swift
+airports["LHR"] = "London Heathrow"
+// “LHR”对应的值被改为“London Heathrow”
+```
+
+### 删除元素
+
+```swift
+var map = ["name": "moki", "age": "26"]
+print(map, terminator: "\n") // ["name": "moki", "age": "26"]
+map.removeValue(forKey: "age")
+print(map) // ["name": "moki"]
+```
+
+### 遍历
+
+```swift
+for (airportCode, airportName) in airports {
+    print("\(airportCode): \(airportName)")
+}
+// YYZ: Toronto Pearson
+// LHR: London Heathrow
+```
+
+通过访问 `keys` 或者 `values` 属性，你也可以遍历字典的键或者值：
+
+```swift
+for airportCode in airports.keys {
+    print("Airport code: \(airportCode)")
+}
+// Airport code: YYZ
+// Airport code: LHR
+
+for airportName in airports.values {
+    print("Airport name: \(airportName)")
+}
+// Airport name: Toronto Pearson
+// Airport name: London Heathrow
+```
+
+## 控制流
+
+
+
+
+
+## 函数
+
+定义:
+
+```swift
+func 函数名(参数名: 参数类型, 参数名2: 参数类型2, ...) -> 返回类型 {
+    // 函数体
+    return 返回值
+}
+```
+
+### 带参数函数
+
+> 下面这个例子其实内部参数名和外部参数名相同的写法，即内部参数名和外部参数名都是 `person`和 `alreadyGreeted`，所以省略了一个参数名
+>
+> 内外参数名请看下面的 Part
+
+```swift
+func greet(person: String, alreadyGreeted: Bool) -> String {
+    if alreadyGreeted {
+        return greetAgain(person: person)
+    } else {
+        return greet(person: person)
+    }
+}
+print(greet(person: "Tim", alreadyGreeted: true))
+// 打印“Hello again, Tim!”
+```
+
+### 无参数函数
+
+```swift
+func sayHelloWorld() -> String {
+    return "hello, world"
+}
+print(sayHelloWorld())
+// 打印“hello, world”
+```
+
+### 返回值
+
+```swift
+// 无返回值
+func greet(person: String) {
+    print("Hello, \(person)!")
+}
+greet(person: "Dave")
+// 打印“Hello, Dave!”
+
+
+// 正常返回值
+func printAndCount(string: String) -> Int {
+    print(string)
+    return string.count
+}
+printAndCount(string: "hello, world")
+
+// 多重返回值
+func minMax(array: [Int]) -> (min: Int, max: Int) {
+    var currentMin = array[0]
+    var currentMax = array[0]
+    for value in array[1..<array.count] {
+        if value < currentMin {
+            currentMin = value
+        } else if value > currentMax {
+            currentMax = value
+        }
+    }
+    return (currentMin, currentMax)
+}
+
+// 可选返回值 （返回值可能是nil）
+func getNumber(num: Int) -> Int? {
+    if num > 10 {
+        return nil;
+    }
+    return 10
+}
+print(getNumber(num: 20))
+// nil，如果num小于10则类型是Optional(10)
+```
+
+### 参数标签
+
+Swift 函数参数有**两个名字**：
+
+- **外部参数名（argument label）**：调用函数时使用；
+- **内部参数名（parameter name）**：函数体中使用。
+
+```swift
+// 在这里 to 和 from 都是外部参数名，person 和 sender都是内部参数名
+func greet(to person: String, from sender: String) {
+    print("Hello \(person)! From \(sender).")
+}
+// 外部调用函数的时候使用的是外部参数名
+greet(to: "Alice", from: "Bob")
+```
+
+省略标签:
+
+```swift
+func greet(_ name: String) {
+    print("Hello \(name)")
+}
+greet("Moki") // 无需写标签
+```
+
+### 默认参数值
+
+```swift
+func greet(_ name: String = "Guest") {
+    print("Hello \(name)")
+}
+greet()         // Hello Guest
+greet("Moki")   // Hello Moki
+```
+
+### 可变参数
+
+一个*可变参数（variadic parameter）*可以接受零个或多个值。函数调用时，你可以用可变参数来指定函数参数可以被传入不确定数量的输入值。通过在变量类型名后面加入（`...`）的方式来定义可变参数。
+
+```swift
+func number(_ data: Int...)  -> [Int] {
+    return data   
+}
+print(number(1,2,3,3))
+// 这里打印出是 [1,2,3,3],可见其实Int...的会被编译成数组的形式
+```
+
+### 输入输出参数
+
+默认情况下，传入给函数的参数的值是*值传递*，所以修改参数的值是不会影响到原来的值的；
+
+加上`inout`后可以修改到原来的值,有三个需要注意的:
+
+1. 必须使用`inout`关键词申明
+2. 参数必须加上`&`；
+3. 参数必须使用`var`而不是`let`
+
+```swift
+func updateNumber(a: inout Int, b: inout Int) -> Int {
+  a = 10;
+  b = 20;
+  return 0;
+}
+var a = 1;
+var b = 2;
+updateNumber(a: &a, b: &b);
+
+print(a, b)
+```
+
+### 嵌套函数
+
+```swift
+//  chooseStepFunction(backward: Bool) -> (Int) -> Int 表示了 该函数返回了一个函数，返回的函数参数是Int类型，返回值是Int类型
+func chooseStepFunction(backward: Bool) -> (Int) -> Int {
+    func stepForward(input: Int) -> Int { return input + 1 }
+    func stepBackward(input: Int) -> Int { return input - 1 }
+    return backward ? stepBackward : stepForward
+}
+```
+
+
+
+## 闭包
+
+### 闭包表达式语法
+
+```swift
+{ (parameters) -> return type in
+    statements
+}
+
+// 例子
+let greet = { (name: String) -> String in
+    return "Hello, \(name)"
+}
+
+print(greet("Moki")) // Hello, Moki
+```
+
+### 简写与自动推断
+
+```swift
+// 正常写法
+let add = { (a: Int, b: Int) -> Int in
+    return a + b
+}
+
+// 自动推断简写
+let add: (Int, Int) -> Int = { a, b in a + b }
+
+
+// 极简写法（参数位置用 $0, $1）
+let add: (Int, Int) -> Int = { $0 + $1 }
+```
+
+## 枚举
+
+定义：
+
+```swift
+enum SomeEnumeration {
+    // 枚举定义放在这里
+}
+
+// 比如
+enum Direction {
+    case north
+    case south
+    case east
+    case west
+}
+
+var dir = Direction.north
+dir = .east // Swift 可以自动推断类型
+```
+
+`switch`的匹配
+
+```swift
+switch dir {
+  case .north:
+      print("向北走")
+  case .south:
+      print("向南走")
+  case .east:
+      print("向东走")
+  case .west:
+      print("向西走")
+  default:
+    print("Not a safe place for humans")
+}
+```
+
+### 遍历
+
+令枚举遵循 `CaseIterable` 协议。Swift 会生成一个 `allCases` 属性，用于表示一个包含枚举所有成员的集合
+
+```swift
+enum Beverage: CaseIterable {
+    case coffee, tea, juice
+}
+let numberOfChoices = Beverage.allCases.count
+print("\(numberOfChoices) beverages available")
+// 打印“3 beverages available”
+```
+
+### 关联值（Associated Values）
+
+对标于上面的枚举的标签，关联值更像是类似于泛型，例子
+
+```swift
+enum NetworkResponse {
+    case success(data: String)
+    case error(code: Int, message: String)
+}
+
+let response = NetworkResponse.error(code: 404, message: "Not Found")
+
+switch response {
+  case .success(let data):
+      print("成功：\(data)")
+  case .error(let code, let message):
+      print("错误 \(code): \(message)")
+}
+```
+
+### 原始值
+
+如果枚举每个 case 有固定的值（数字或字符串），可以用 **原始值枚举** `rawValue`：
+
+```swift
+enum Planet: Int {
+    case mercury = 1
+    case venus
+    case earth
+    case mars
+}
+
+let p = Planet.earth
+print(p.rawValue) // 3
+```
+
+如果不给默认值，则`rawValue`则是从0开始:
+
+```swift
+enum Planet {
+    case mercury // rawValue = 0
+    case venus
+    case earth
+    case mars
+}
+
+print(Planet.earth.rawValue) // 2
+```
+
+## 结构体和类
+
+Swift 中结构体和类有很多共同点。两者都可以：
+
+- 定义属性用于存储值
+- 定义方法用于提供功能
+- 定义下标操作用于通过下标语法访问它们的值
+- 定义构造器用于设置初始值
+- 通过扩展以增加默认实现之外的功能
+- 遵循协议以提供某种标准功能
+
+与结构体相比，类还有如下的附加功能：
+
+- 继承允许一个类继承另一个类的特征
+- 类型转换允许在运行时检查和解释一个类实例的类型
+- 析构器允许一个类实例释放任何其所被分配的资源
+- 引用计数允许对一个类的多次引用
+- 
+
+| 特性              | `class`（类）               | `struct`（结构体）            |
+| ----------------- | --------------------------- | ----------------------------- |
+| 类型              | **引用类型**                | **值类型**                    |
+| 赋值/传参         | 拷贝“引用”                  | 拷贝“值”                      |
+| 内存行为          | 多个变量共享同一实例        | 每个变量都有自己独立副本      |
+| 是否可继承        | ✅ 可以继承                  | ❌ 不可继承                    |
+| 析构函数 `deinit` | ✅ 支持                      | ❌ 不支持                      |
+| 可变性            | 常量引用（`let`）仍可改属性 | 常量结构体（`let`）彻底不可变 |
+| 常用于            | 对象、控制器、引用共享      | 数据模型、简单值、不可变状态  |
+
+### 类型定义的语法
+
+```swift
+struct SomeStructure {
+    // 在这里定义结构体
+}
+class SomeClass {
+    // 在这里定义类
+}
+```
+
+### 属性访问
+
+例子
+
+```swift
+struct Resolution {
+    var width = 0
+    var height = 0
+}
+class VideoMode {
+    var resolution = Resolution()
+    var interlaced = false
+    var frameRate = 0.0
+    var name: String?
+}
+
+
+let someResolution = Resolution()
+let someVideoMode = VideoMode()
+
+print("The width of someResolution is \(someResolution.width)")
+print("The width of someVideoMode is \(someVideoMode.resolution.width)")
+
+// 修改值 
+someVideoMode.resolution.width = 1280
+print("The width of someVideoMode is now \(someVideoMode.resolution.width)")
+// 打印 "The width of someVideoMode is now 1280"
+
+```
+
+### 成员初始化器
+
+| 特性                    | `struct`   | `class`                       |
+| ----------------------- | ---------- | ----------------------------- |
+| 默认生成 “无参初始化器” | ✅          | ✅（前提：所有属性都有默认值） |
+| 默认生成 “成员初始化器” | ✅ 自动生成 | ❌ 不生成（必须手写）          |
+
+在`struct`中自带初始化器:
+
+```swift
+class Person {
+    var age = 0
+}
+
+struct PersonOne {
+    var age = 10
+}
+
+var a = Person()
+// PersonOne可以直接传入初始值,自动生成 init(age: Int)
+var b = PersonOne(age: 20)
+print(b.age)
+```
+
+在`class`中并没有自动生成，需要手动初始化:
+
+```swift
+class Person {
+    var age: Int
+    init(age: Int) {
+        self.age = age
+    }
+}
+```
+

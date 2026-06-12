@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Blog {
+  id        String        @id @default(cuid())
+  createdAt DateTime      @default(now())
+  slug      String        @unique
+  views     Int           @default(0)
+  comments  BlogComment[]
+}
+
+model BlogComment {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  slug      String
+  name      String
+  email     String?
+  content   String
+  blog      Blog     @relation(fields: [slug], references: [slug], onDelete: Cascade)
+
+  @@index([slug])
+}
